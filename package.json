@@ -30,7 +30,6 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
-  "homepage": "https://hjhirp.github.io/portfolio-website",
   "eslintConfig": {
     "extends": [
       "react-app",
