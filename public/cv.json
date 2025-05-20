@@ -1,0 +1,434 @@
+{
+  "personal_information": {
+    "name": "Harshal Hirpara",
+    "phone": "+1 (872) 279-7648",
+    "email": "Hhirp@uic.edu",
+    "linkedin": "https://www.linkedin.com/in/harshaljhirpara",
+    "github": "https://github.com/Hjhirp",
+    "medium": "https://medium.com/@hhirp",
+    "google_scholar": "https://scholar.google.com/citations?user=dqOz0_UAAAAJ&hl=en"
+  },
+  "summary": [
+    "Innovative Machine Learning Engineer with 4+ years of experience in designing, deploying, and optimizing scalable ML models. Proven expertise in generative AI and applied AI, leveraging cloud platforms (AWS/GCP/Azure) to develop robust end-to-end solutions. Adept at collaborating in cross-functional, remote-first environments to drive cutting-edge product innovation.",
+    "Machine Learning Engineer with deep expertise in LLM fine-tuning, reinforcement learning, and scalable deployment using PyTorch, XGBoost, and HuggingFace. Proven success building ML pipelines, aligning models with real-world use cases across NLP and healthcare domains. Skilled in cloud MLOps, dataset optimization, and cutting-edge techniques like LoRA, QLoRA, RLHF, and DPO.",
+    "Aspiring 🚀 ML engineer and M.S. Computer Science student @ University of Illinois Chicago 🌆",
+    "Loves building intelligent systems to solve real-world problems with cutting-edge technology. 💡"
+  ],
+  "education": [
+    {
+      "degree": "Master Of Science (M.S.) in Computer Science",
+      "university": "University Of Illinois at Chicago",
+      "location": "Chicago, IL",
+      "graduation_date": "Expected May 2025",
+      "gpa": "4.0/4.0",
+      "relevant_coursework": [
+        "Natural Language Programming",
+        "Neural Networks",
+        "Advance Machine Learning",
+        "Big Data Mining",
+        "Distributed Systems"
+      ],
+      "thesis": "Guided Policy Gradient for Dynamic Treatment Plan Prediction with Symptom Burden Minimization in Head and Neck Cancer"
+    },
+    {
+      "degree": "Bachelor Of Technology (B. Tech.) in Computer Science and Engineering",
+      "university": "Nirma University",
+      "location": "Ahmedabad, India",
+      "graduation_date": "2019 – 2023",
+      "gpa": "3.5/4.0",
+      "relevant_coursework": [
+        "Machine Learning",
+        "Deep Learning",
+        "Data Structures",
+        "Linear Algebra",
+        "Calculus",
+        "Probability and Statistics"
+      ],
+      "achievements": [
+        "Awarded the Certificate of Academic Excellence",
+        "Awarded the Scholar Certificate"
+      ]
+    }
+  ],
+  "technical_skills": {
+    "ml_data_tools": [
+      "PyTorch",
+      "JAX",
+      "TensorFlow",
+      "HuggingFace",
+      "scikit-learn",
+      "pandas",
+      "Dask",
+      "SQL",
+      "Apache Spark",
+      "Airflow",
+      "XGBoost",
+      "CatBoost",
+      "LightGBM",
+      "NumPy",
+      "Keras",
+      "SciPy",
+      "Gensim",
+      "Seaborn",
+      "NLTK",
+      "Matplotlib",
+      "Bart-ls"
+    ],
+    "ci_cd": [
+      "Docker",
+      "Kubernetes",
+      "AWS (SageMaker, Lambda, EC2, S3, Cloudwatch, Inferentia)",
+      "GCP",
+      "Azure ML",
+      "SLURM",
+      "Terraform",
+      "Prometheus",
+      "Grafana"
+    ],
+    "frameworks": [
+      "FastAPI",
+      "Label Studio",
+      "Prodigy",
+      "Weights & Biases (W&B)",
+      "MLflow",
+      "GitHub",
+      "GitLab",
+      "Postman",
+      "Langchain",
+      "RL-Gym",
+      "OpenCV",
+      "MediaPipe"
+    ],
+    "programming": [
+      "Python",
+      "C++",
+      "Java",
+      "Scala",
+      "Shell scripting",
+      "C"
+    ]
+  },
+  "professional_experience": [
+    {
+      "title": "Graduate Research Assistant (LLM Alignment and RL Model Implementation)",
+      "company": "Computer Science Department, University of Illinois at Chicago",
+      "location": "Chicago, IL",
+      "start_date": "Aug 2024",
+      "end_date": "Present",
+      "stack": [
+        "PyTorch",
+        "Kubernetes",
+        "Slurm",
+        "W&B",
+        "DeepSpeed/Accelerate",
+        "RL-Gym"
+      ],
+      "responsibilities": [
+        "Enhancing large language models (LLMs) post-supervised fine-tuning (SFT) by exploring advanced reinforcement learning (RL) techniques beyond proximal policy optimization (PPO) for improved alignment and efficiency",
+        "Accelerated LLM training by 54% via distributed optimization with DeepSpeed/Accelerate",
+        "Integrated W&B for automated hyperparameter tuning and track all experiments seamlessly",
+        "Utilized Kubernetes for A40 GPU clusters and Slurm for A100 GPU clusters to spin up and operate HPC environments",
+        "Developed an Offline Reinforcement Learning model to recommend optimal treatment actions for a digital twin of a cancer patient"
+      ]
+    },
+    {
+      "title": "Graduate Researcher Assistant (Machine Learning Engineering)",
+      "company": "Neurology And Rehabilitation Department, UI Health, University of Illinois at Chicago",
+      "location": "Chicago, IL",
+      "start_date": "Oct 2023",
+      "end_date": "Present",
+      "stack": [
+        "Python",
+        "JAX",
+        "Azure ML",
+        "SciPy",
+        "Docker"
+      ],
+      "responsibilities": [
+        "Led development of an ML pipeline using JAX, SciPy, Azure ML, and Docker, reducing processing time by 40% and streamlining deployment",
+        "Improved EEG seizure detection accuracy from 91% to 99% through ensemble optimization",
+        "Developed containerized preprocessing and artifact removal modules for consistent, clean signal ingestion",
+        "Collaborated with clinicians and other team members to iteratively refine detection logic and enhance trust in automated insights",
+        "Achieved state-of-the-art detection with 99% accuracy, 88% sensitivity, and 0.43 false positives per hour",
+        "Led research on treatment plan prediction using Guided Policy Gradient, incorporating clinician feedback and symptom data for personalized care; achieved ~80% alignment accuracy and ~60% Macro-f1 score with doctor decisions for majority decision points"
+      ]
+    },
+    {
+      "title": "Machine Learning Engineer",
+      "company": "Cactus Communications",
+      "location": "Mumbai, India",
+      "start_date": "June 2022",
+      "end_date": "July 2023",
+      "stack": [
+        "Python",
+        "PyTorch",
+        "Postman",
+        "AWS (EC2, S3, Cloudwatch, Inferentia)",
+        "Docker",
+        "Huggingface transformers",
+        "Terraform"
+      ],
+      "responsibilities": [
+        "Developed scalable GPT-3.5 NLP pipelines using Python, PyTorch, HuggingFace, and Docker; reduced inference costs by $10K annually",
+        "Optimized and tested AWS Inferentia deployments to minimize inference latency and maximize efficiency",
+        "Built an automated testing framework to track model robustness, detect regressions, and support A/B testing for continuous improvement",
+        "Designed and deployed summarization and keyword extraction systems for scientific document processing using Transformers",
+        "Enhanced text generation quality by integrating few-shot learning and fine-tuning on domain-specific corpora",
+        "Deployed models on AWS EC2 and integrated with S3 for data flow; conducted API validation using Postman, monitored performance via CloudWatch, and automated workflows with AWS Lambda",
+        "Improved system reliability by 15%",
+        "Created a text extraction and keyword generation tool using Huggingface transformers to aid scientific writing"
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "AI Chess Bot using GPT-2 Style Decoder Model",
+      "tag": "NLP",
+      "stack": [
+        "Python",
+        "PyTorch",
+        "Transformers"
+      ],
+      "description": "Built a 12-layer GPT-2 style decoder trained on 48 A10 GPUs, achieving 60% Top 1 and 85% Top 5 accuracy, enhanced via reward-based fine-tuning for strategic move selection"
+    },
+    {
+      "name": "Evaluating LLM Powered AI-Agents",
+      "tag": "NLP",
+      "stack": [
+        "Langchain",
+        "Python",
+        "PyTorch",
+        "FastAPI"
+      ],
+      "description": "Built AI agents using Langchain and FastAPI for 7B and 16B models (Mistral, Llamas) to play games like blackjack and pathfinding; improved reasoning via chain-of-thought and few-shot learning and evaluated agent biases through human-survey and game-rules violations"
+    },
+    {
+      "name": "CS553 Distributed Computing Project – Distributed Algorithms Simulation",
+      "tag": "Distributed Systems",
+      "stack": [
+        "Scala",
+        "Akka",
+        "Prometheus",
+        "Grafana",
+        "IntelliJ"
+      ],
+      "description": "Developed simulations of distributed computing algorithms using Scala and the Akka framework. Implemented message-passing and shared memory models, with automated performance tracking and visualization via Prometheus and Grafana"
+    },
+    {
+      "name": "Reproduced training and evaluation of instruction-tuned models",
+      "tag": "NLP",
+      "stack": [
+        "HuggingFace",
+        "shell-based workflows"
+      ],
+      "description": "Reproduced training and evaluation of instruction-tuned models (RoBERTa-350M, OPT-350M) on Alpaca and QA datasets. Modified training scripts, tuned hyperparameters, and validated results using HuggingFace and shell-based workflows"
+    },
+    {
+      "name": "Anomaly Detection on Martian Surface",
+      "tag": "Computer Vision",
+      "stack": [
+        "Python",
+        "PyTorch",
+        "YOLOv4",
+        "Label Studio",
+        "Streamlit"
+      ],
+      "description": "Developed an anomaly detection pipeline for Martian surface analysis using YOLOv4, identifying 8 distinct anomalies; leveraged Label Studio for manual annotations and Streamlit for interactive demo visualization"
+    },
+    {
+      "name": "LLM-Grounded Text-In-Image Generation 🖼️",
+      "tag": "Computer Vision",
+      "stack": [
+        "Python",
+        "PyTorch",
+        "OpenCV",
+        "C++"
+      ],
+      "description": "Leveraged Llama 16B to generate conditional text masks within images, utilizing a custom dataset and advanced model optimization techniques"
+    },
+    {
+      "name": "Ambulatory EEG Signal Analysis 🧠",
+      "tag": "Healthcare AI",
+      "stack": [
+        "Python",
+        "JAX",
+        "SciPy",
+        "Azure ML Studio"
+      ],
+      "description": "Reduced EEG signal processing time by 40% with a scalable ML pipeline and achieved 99% accuracy and 88% sensitivity in EEG anomaly detection"
+    },
+    {
+      "name": "SCIPASUMM 📜",
+      "tag": "NLP",
+      "stack": [
+        "Python",
+        "Bart-ls",
+        "Huggingface",
+        "PyTorch"
+      ],
+      "description": "Working on an end-to-end research paper summarization pipeline using NLP techniques like Bart-ls"
+    },
+    {
+      "name": "Apple Grading Using Computer Vision 🍏",
+      "tag": "Computer Vision",
+      "stack": [
+        "Python",
+        "OpenCV",
+        "Keras",
+        "TensorFlow",
+        "CNN"
+      ],
+      "description": "Demonstrates how to grade apples using image processing and CNNs. Learn about computer vision, and contribute to agricultural technology"
+    },
+    {
+      "name": "Gaze Detection Using Computer Vision 👀",
+      "tag": "Computer Vision",
+      "stack": [
+        "Python",
+        "OpenCV",
+        "MediaPipe"
+      ],
+      "description": "Driver Gaze and Drowsiness Detection with Computer Vision. This project detects driver gaze and drowsiness in real time, enhancing road safety"
+    },
+    {
+      "name": "UNET Implementation for Image Segmentation 🌟",
+      "tag": "Computer Vision",
+      "stack": [
+        "Python",
+        "Keras",
+        "TensorFlow",
+        "UNET"
+      ],
+      "description": "Explore the UNET architecture, a powerful tool for image segmentation. Enhance your image segmentation skills through this implementation"
+    },
+    {
+      "name": "YOLO Implementation for Mars Anomaly Detection 🚀",
+      "tag": "Computer Vision",
+      "stack": [
+        "Python",
+        "YOLOv3",
+        "Keras",
+        "OpenCV"
+      ],
+      "description": "Discover the secrets of Mars using YOLO to detect anomalies. Explore space exploration and planetary science with this project"
+    },
+    {
+      "name": "Tweet Topic Modelling 📊",
+      "tag": "NLP",
+      "stack": [
+        "Python",
+        "Gensim",
+        "Seaborn",
+        "NLTK",
+        "Matplotlib"
+      ],
+      "description": "Analyze tweet topics using Gensim and Seaborn. Visualize diverse tweet topics with NLP techniques"
+    },
+    {
+      "name": "Emotion Recognition with Face Mask 😷",
+      "tag": "Computer Vision",
+      "stack": [
+        "Python",
+        "OpenCV",
+        "Keras",
+        "TensorFlow",
+        "CNN"
+      ],
+      "description": "Created a CNN to classify emotions from masked faces using OpenCV and Keras"
+    },
+    {
+      "name": "Lithium-Ion Battery 🔋",
+      "tag": "Time Series",
+      "stack": [
+        "Python",
+        "TensorFlow",
+        "Pandas",
+        "NumPy",
+        "Time-Series Analysis"
+      ],
+      "description": "Built a forecasting model using TensorFlow to estimate battery capacity. Achieved ≤4% error!"
+    },
+    {
+      "name": "Robotic Arm 🤖",
+      "tag": "Reinforcement Learning",
+      "stack": [
+        "Python",
+        "PyTorch",
+        "RL-Gym"
+      ],
+      "description": "Trained a simulated robotic arm to grab objects using reinforcement learning algorithms"
+    },
+    {
+      "name": "Plant Disease Classification 🌱",
+      "tag": "Computer Vision",
+      "stack": [
+        "Python",
+        "Keras",
+        "TensorFlow",
+        "ResNet",
+        "OpenCV"
+      ],
+      "description": "Developed an image classifier using ResNet to identify 38 plant diseases accurately"
+    }
+  ],
+  "research_publications": [
+    {
+      "title": "Exploring Large Language Models: Concepts, Alignment Techniques, And Practical Implementation",
+      "link": "https://medium.com/@hhirp/exploring-large-language-models-concepts-alignment-techniques-and-practical-implementation-8279aaa2f91f",
+      "date": "Oct 2024",
+      "description": "Implemented and documented training and alignment techniques for LLMs, including LoRA, QLoRA, RLHF, DPO, KTO, and ORPO"
+    },
+    {
+      "title": "Automated Seizure Detection in Ambulatory EEG",
+      "link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dqOz0_UAAAAJ&citation_for_view=dqOz0_UAAAAJ:u-x6o8ySG0sC",
+      "date": "Dec 2024",
+      "description": "Developed an aEEG seizure detection system using XGBoost, CatBoost, and LightGBM ensemble, achieving 99% accuracy, 88% sensitivity"
+    },
+    {
+      "title": "Capacity Estimation of Li-Ion Battery Cells Using Deep Neural Networks",
+      "link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dqOz0_UAAAAJ&citation_for_view=dqOz0_UAAAAJ:u-x6o8ySG0sC",
+      "date": "Oct 2024",
+      "description": "Leveraged LSTM models for battery capacity and life estimation under real-world conditions, achieving 0.0067 RMSE loss with statistical preprocessing"
+    },
+    {
+      "title": "Thesis: Guided Policy Gradient for Dynamic Treatment Plan Prediction with Symptom Burden Minimization in Head and Neck Cancer",
+      "institution": "University of Illinois Chicago"
+    }
+  ],
+  "achievements_awards": [
+    "Awarded the Certificate of Academic Excellence",
+    "Awarded the Scholar Certificate"
+  ],
+  "superpowers_unleashed": {
+    "programming_mastery": [
+      "Python (NumPy, Pandas, Scikit-learn, TensorFlow, PyTorch, Keras)",
+      "Java",
+      "C++",
+      "Scala"
+    ],
+    "machine_learning_expertise": [
+      "Deep Learning",
+      "Natural Language Processing",
+      "Computer Vision",
+      "Reinforcement Learning",
+      "Gradient Boosting"
+    ],
+    "data_cloud_proficiency": [
+      "Hadoop",
+      "Spark",
+      "MongoDB",
+      "PostgreSQL",
+      "AWS (SageMaker, Lambda, EC2)",
+      "GCP",
+      "Azure",
+      "Docker",
+      "Kubernetes",
+      "Terraform"
+    ],
+    "ai_model_development": [
+      "Expertise in LLMs",
+      "Neural networks",
+      "Deploying scalable ML models"
+    ]
+  }
+}
