@@ -76,14 +76,14 @@ const PaperLink = styled.a<{ primary?: boolean }>`
   margin-bottom: ${theme.spacing.sm};
   padding: ${theme.spacing.xs} ${theme.spacing.md};
   background-color: ${props => props.primary ? theme.colors.primary : theme.colors.light};
-  color: ${props => props.primary ? 'white' : theme.colors.primary};
+  color: ${props => props.primary ? 'white' : theme.colors.dark};
   text-decoration: none;
   border-radius: ${theme.borderRadius.sm};
   font-weight: 500;
   transition: background 0.2s, color 0.2s;
   &:hover {
     background-color: ${props => props.primary ? theme.colors.primaryDark : theme.colors.lightDark};
-    color: ${props => props.primary ? 'white' : theme.colors.primary};
+    color: ${props => props.primary ? 'white' : theme.colors.dark};
   }
 `;
 
