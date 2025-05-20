@@ -157,6 +157,8 @@ const ContactPage: React.FC<ContactPageProps> = ({ cvData, loading, error }) => 
     message: ''
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
@@ -172,27 +174,31 @@ const ContactPage: React.FC<ContactPageProps> = ({ cvData, loading, error }) => 
     }));
   };
   
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // In a real application, you'd send this data to a server
-    console.log('Form submitted:', formData);
-    
-    // Show thank you message
-    setIsSubmitted(true);
-    
-    // Reset form
-    setFormData({
-      name: '',
-      email: '',
-      subject: '',
-      message: ''
-    });
-    
-    // Hide thank you message after 5 seconds
-    setTimeout(() => {
-      setIsSubmitted(false);
-    }, 5000);
+    setIsSubmitting(true);
+    setSubmitError(null);
+    try {
+      const response = await fetch('https://formspree.io/f/xldbvzpr', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      if (response.ok) {
+        setIsSubmitted(true);
+        setFormData({ name: '', email: '', subject: '', message: '' });
+        setTimeout(() => setIsSubmitted(false), 5000);
+      } else {
+        setSubmitError('Failed to send message. Please try again later.');
+      }
+    } catch (err) {
+      setSubmitError('Failed to send message. Please try again later.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
   
   return (
@@ -207,7 +213,7 @@ const ContactPage: React.FC<ContactPageProps> = ({ cvData, loading, error }) => 
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              Let's talk about your project
+              Let's Connect!
             </motion.h2>
             
             <ContactItem
@@ -358,7 +364,18 @@ const ContactPage: React.FC<ContactPageProps> = ({ cvData, loading, error }) => 
               ></textarea>
             </FormGroup>
             
-            <SubmitButton type="submit">Send Message</SubmitButton>
+            <SubmitButton type="submit" disabled={isSubmitting}>{isSubmitting ? 'Sending...' : 'Send Message'}</SubmitButton>
+            
+            {submitError && (
+              <ThankYouMessage
+                style={{ background: theme.colors.navy }}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+              >
+                {submitError}
+              </ThankYouMessage>
+            )}
             
             {isSubmitted && (
               <ThankYouMessage
