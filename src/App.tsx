@@ -9,7 +9,6 @@ import ProjectsPage from './pages/ProjectsPage';
 import ResearchPage from './pages/ResearchPage';
 import ContactPage from './pages/ContactPage';
 import { useCV } from './utils/cvUtils';
-// Font Awesome and DevIcons setup
 import { useScript } from './utils/useScript';
 
 function App() {

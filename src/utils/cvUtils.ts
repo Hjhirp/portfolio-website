@@ -80,7 +80,7 @@ export const useCV = () => {
       try {
         // In production, this would be a proper API call
         // For local development, we're using a direct import
-        const response = await fetch('/portfolio-website/cv.json');
+        const response = await fetch('/cv.json');
         if (!response.ok) {
           throw new Error('Failed to fetch CV data');
         }
