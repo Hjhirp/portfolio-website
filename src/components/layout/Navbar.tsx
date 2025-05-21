@@ -233,7 +233,7 @@ const Navbar: React.FC<NavbarProps> = ({ cvData, darkMode, setDarkMode }) => {
         transition={{ duration: 0.5 }}
       >
         <NavContainer>
-          <Logo to="/">{name.split(' ')[0]}</Logo>
+          <Logo to="/">{name}</Logo>
           
           <NavMenu>
             <NavList>
