@@ -21,19 +21,6 @@ const ProjectCard = styled.div<{ theme: DefaultTheme }>`
   color: ${({ theme }) => theme.colors.dark};
 `;
 
-const ProjectImage = styled.div<{ theme: DefaultTheme }>`
-  width: 100%;
-  height: 180px;
-  background: ${({ theme }) => theme.colors.lightGray};
-  border-radius: 0.5rem;
-  margin-bottom: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #aaa;
-  font-size: 2rem;
-`;
-
 const Tag = styled.span<{ theme: DefaultTheme }>`
   background: ${({ theme }) => theme.colors.light};
   color: ${({ theme }) => theme.colors.primary};
@@ -43,23 +30,61 @@ const Tag = styled.span<{ theme: DefaultTheme }>`
 `;
 
 const ProjectsPage: React.FC<ProjectsPageProps> = ({ cvData, loading, error }) => {
+  // Move hooks to the top, before any early returns
+  const [activeTag, setActiveTag] = React.useState<string>('All');
+
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
   if (!cvData) return <div>No CV data available</div>;
   const projects = cvData.projects || [];
+  const allTags = Array.from(new Set(projects.map((p: any) => p.tag || 'Other')));
 
   return (
     <Section>
       <Container>
         <SectionTitle>Projects</SectionTitle>
+        {/* Tag Navbar */}
+        <div style={{ display: 'flex', gap: '1rem', marginBottom: '2rem', flexWrap: 'wrap', justifyContent: 'center' }}>
+          <button
+            onClick={() => setActiveTag('All')}
+            style={{
+              background: activeTag === 'All' ? theme.colors.primary : theme.colors.cardBackground,
+              color: activeTag === 'All' ? '#fff' : theme.colors.primary,
+              border: 'none',
+              borderRadius: '0.5rem',
+              padding: '0.5rem 1rem',
+              cursor: 'pointer',
+              fontWeight: 600,
+              boxShadow: activeTag === 'All' ? '0 2px 8px rgba(0,0,0,0.07)' : 'none',
+              transition: 'all 0.2s',
+            }}
+          >
+            All
+          </button>
+          {allTags.map((tag) => (
+            <button
+              key={tag}
+              onClick={() => setActiveTag(tag)}
+              style={{
+                background: activeTag === tag ? theme.colors.primary : theme.colors.cardBackground,
+                color: activeTag === tag ? '#fff' : theme.colors.primary,
+                border: 'none',
+                borderRadius: '0.5rem',
+                padding: '0.5rem 1rem',
+                cursor: 'pointer',
+                fontWeight: 600,
+                boxShadow: activeTag === tag ? '0 2px 8px rgba(0,0,0,0.07)' : 'none',
+                transition: 'all 0.2s',
+              }}
+            >
+              {tag}
+            </button>
+          ))}
+        </div>
+        {/* Projects Grid */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem' }}>
-          {projects.map((project, idx) => (
+          {(activeTag === 'All' ? projects : projects.filter((p: any) => (p.tag || 'Other') === activeTag)).map((project, idx) => (
             <ProjectCard key={idx}>
-              <ProjectImage>
-                {project.image ? (
-                  <img src={project.image} alt={project.name} style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} />
-                ) : 'No Image'}
-              </ProjectImage>
               <h3 style={{ marginBottom: '0.5rem' }}>{project.name}</h3>
               <p style={{ textAlign: 'justify' }}>{project.description}</p>
               <div style={{ marginTop: '1rem', display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>

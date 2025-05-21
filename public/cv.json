@@ -2,17 +2,17 @@
   "personal_information": {
     "name": "Harshal Hirpara",
     "phone": "+1 (872) 279-7648",
-    "email": "Hhirp@uic.edu",
+    "email": "Hirparaharshal.57@gmail.com",
     "linkedin": "https://www.linkedin.com/in/harshaljhirpara",
     "github": "https://github.com/Hjhirp",
     "medium": "https://medium.com/@hhirp",
     "google_scholar": "https://scholar.google.com/citations?user=dqOz0_UAAAAJ&hl=en"
   },
   "summary": [
-    "Innovative Machine Learning Engineer with 4+ years of experience in designing, deploying, and optimizing scalable ML models. Proven expertise in generative AI and applied AI, leveraging cloud platforms (AWS/GCP/Azure) to develop robust end-to-end solutions. Adept at collaborating in cross-functional, remote-first environments to drive cutting-edge product innovation.",
-    "Machine Learning Engineer with deep expertise in LLM fine-tuning, reinforcement learning, and scalable deployment using PyTorch, XGBoost, and HuggingFace. Proven success building ML pipelines, aligning models with real-world use cases across NLP and healthcare domains. Skilled in cloud MLOps, dataset optimization, and cutting-edge techniques like LoRA, QLoRA, RLHF, and DPO.",
-    "Aspiring 🚀 ML engineer and M.S. Computer Science student @ University of Illinois Chicago 🌆",
-    "Loves building intelligent systems to solve real-world problems with cutting-edge technology. 💡"
+    "I am Harshal Hirpara, a Machine Learning Engineer who turns cutting-edge research into production-ready systems. My recent work centers on three pillars that shape both my technical focus and the value I deliver.",
+    "First, I specialize in aligning and post-training large language models so they behave safely and usefully in real-world settings. By combining techniques such as RLHF, DPO, LoRA, and QLoRA, I iterate quickly on model behavior without inflating compute costs. Whether refining the conversational tone of a healthcare assistant or sharpening reasoning in complex domain tasks, I design nuanced reward functions, build scalable feedback loops, and run rigorous evaluations to ensure every model produces reliable, aligned outputs.",
+    "Second, I develop agentic AI systems that move beyond single-prompt interactions. Using LangChain and LangGraph, I compose retrieval-augmented generation, chain-of-thought reasoning, and tool execution into modular agents that can reason, plan, and act across diverse data sources. Recent projects include a financial decision agent that balances CDS spreads against deposit rates in real time, a research co-pilot that distills literature into actionable insights, and a multi-agent game environment where autonomous players learn strategies and critique one another’s moves.",
+    "Finally, I bring models from notebook to production through robust deployment and reinforcement-learning expertise. I containerize workloads with Docker, orchestrate them via Kubernetes, and automate CI/CD pipelines on AWS, GCP, and Azure. My reinforcement-learning pipelines scale in distributed training environments and drive systems such as a cancer-detection model that refines diagnostic pathways and a robotic-arm manipulation policy that learns dexterous tasks through simulated and real-world feedback, seamlessly transitioning from offline training to continuous improvement in the field."
   ],
   "education": [
     {
@@ -27,6 +27,10 @@
         "Advance Machine Learning",
         "Big Data Mining",
         "Distributed Systems"
+      ],
+      "achievements": [
+        "Awarded the Graduate Students Committee Travel Award",
+        "Awarded the University of Illinois Chicago Presenters Award"
       ],
       "thesis": "Guided Policy Gradient for Dynamic Treatment Plan Prediction with Symptom Burden Minimization in Head and Neck Cancer"
     },
@@ -47,7 +51,8 @@
       "achievements": [
         "Awarded the Certificate of Academic Excellence",
         "Awarded the Scholar Certificate"
-      ]
+      ],
+      "thesis": "SCIPASUMM: Section-wise Research Paper Summarization using NLP Techniques and Transformers"
     }
   ],
   "technical_skills": {

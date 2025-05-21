@@ -13,7 +13,7 @@ const StyledFooter = styled.footer`
   width: 100%;
   background: ${({ theme }) => theme.colors.navy};
   color: ${({ theme }) => theme.colors.slate};
-  padding: 2rem 0 1rem 0;
+  padding: 1.5rem 0;
   text-align: center;
   font-size: 1rem;
   letter-spacing: 1px;
@@ -134,30 +134,6 @@ const Footer: React.FC<FooterProps> = ({ cvData }) => {
     <StyledFooter>
       <FooterContainer>
         <FooterSection>
-          <FooterHeading>About Me</FooterHeading>
-          <FooterText>
-            Machine Learning Engineer focused on creating innovative AI solutions,
-            with expertise in NLP, computer vision, and cloud technologies.
-          </FooterText>
-          <SocialLinks>
-            <SocialLink href={githubUrl} target="_blank" rel="noopener noreferrer">
-              <i className="fab fa-github"></i>
-            </SocialLink>
-            <SocialLink href={linkedinUrl} target="_blank" rel="noopener noreferrer">
-              <i className="fab fa-linkedin"></i>
-            </SocialLink>
-            <SocialLink href={mediumUrl} target="_blank" rel="noopener noreferrer">
-              <i className="fab fa-medium"></i>
-            </SocialLink>
-            {googleScholarUrl !== '#' && (
-              <SocialLink href={googleScholarUrl} target="_blank" rel="noopener noreferrer">
-                <i className="fas fa-graduation-cap"></i>
-              </SocialLink>
-            )}
-          </SocialLinks>
-        </FooterSection>
-        
-        <FooterSection>
           <FooterHeading>Navigation</FooterHeading>
           <FooterLinks>
             <FooterLink>
@@ -183,7 +159,7 @@ const Footer: React.FC<FooterProps> = ({ cvData }) => {
         
         <FooterSection>
           <FooterHeading>Contact</FooterHeading>
-          <FooterLinks>
+          <FooterLinks style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <FooterLink>
               <ExternalLink href={`mailto:${email}`}>
                 <i className="far fa-envelope"></i>

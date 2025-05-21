@@ -269,8 +269,9 @@ const HomePage: React.FC<HomeProps> = ({ cvData, loading, error }) => {
   
   // Extract data from CV
   const name = stripReferences(cvData.personal_information.name);
-  const summaries = cleanStringArray(cvData.summary);
-  const firstSummary = summaries[0] || '';
+  // Use the About Me text from the footer (short, focused, with RL, LLM, agents)
+  const firstSummary =
+    'Machine Learning Engineer focused on creating innovative AI solutions, with expertise in NLP, computer vision, cloud technologies, and a strong focus on reinforcement learning, large language models (LLMs), and intelligent agents.';
   
   // Tech skills
   const programmingSkills = cleanStringArray(cvData.technical_skills.programming)
