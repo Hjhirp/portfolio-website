@@ -17,8 +17,35 @@ const ProjectCard = styled.div<{ theme: DefaultTheme }>`
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
-  align-items: center;
   color: ${({ theme }) => theme.colors.dark};
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  }
+`;
+
+const ProjectLinks = styled.div`
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+`;
+
+const LinkButton = styled.a<{ theme: DefaultTheme }>`
+  background: ${({ theme }) => theme.colors.primary};
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: background 0.2s ease;
+  
+  &:hover {
+    background: ${({ theme }) => theme.colors.secondary || '#0056b3'};
+  }
 `;
 
 const Tag = styled.span<{ theme: DefaultTheme }>`
@@ -82,16 +109,41 @@ const ProjectsPage: React.FC<ProjectsPageProps> = ({ cvData, loading, error }) =
           ))}
         </div>
         {/* Projects Grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '2rem' }}>
           {(activeTag === 'All' ? projects : projects.filter((p: any) => (p.tag || 'Other') === activeTag)).map((project, idx) => (
             <ProjectCard key={idx}>
-              <h3 style={{ marginBottom: '0.5rem' }}>{project.name}</h3>
-              <p style={{ textAlign: 'justify' }}>{project.description}</p>
+              <h3 style={{ marginBottom: '0.75rem', fontSize: '1.25rem', fontWeight: '700' }}>{project.name}</h3>
+              <p style={{ textAlign: 'justify', lineHeight: '1.6', flex: '1' }}>{project.description}</p>
               <div style={{ marginTop: '1rem', display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
                 {project.stack && project.stack.map((tech, i) => (
                   <Tag key={i}>{tech}</Tag>
                 ))}
               </div>
+              {(project.github || project.demo) && (
+                <ProjectLinks>
+                  {project.github && (
+                    <LinkButton href={project.github} target="_blank" rel="noopener noreferrer">
+                      <i className="fab fa-github" style={{ marginRight: '0.5rem' }}></i>
+                      GitHub
+                    </LinkButton>
+                  )}
+                  {project.demo && (
+                    <LinkButton 
+                      href={project.demo?.startsWith('http') ? project.demo : '#'} 
+                      target={project.demo?.startsWith('http') ? '_blank' : '_self'}
+                      rel="noopener noreferrer"
+                      onClick={project.demo?.startsWith('Call:') ? (e) => {
+                        e.preventDefault();
+                        const phoneNumber = project.demo?.replace('Call: ', '') || '';
+                        window.location.href = `tel:${phoneNumber}`;
+                      } : undefined}
+                    >
+                      <i className={`fas ${project.demo?.startsWith('Call:') ? 'fa-phone' : 'fa-external-link-alt'}`} style={{ marginRight: '0.5rem' }}></i>
+                      {project.demo?.startsWith('Call:') ? 'Call Demo' : 'Demo'}
+                    </LinkButton>
+                  )}
+                </ProjectLinks>
+              )}
             </ProjectCard>
           ))}
         </div>

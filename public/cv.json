@@ -115,11 +115,38 @@
   },
   "professional_experience": [
     {
+      "title": "Founding Engineer",
+      "company": "Quin",
+      "location": "Mountain View, CA",
+      "start_date": "Jun 2025",
+      "end_date": "Present",
+      "stack": [
+        "Python",
+        "AWS",
+        "Lambda",
+        "RDS",
+        "ECS",
+        "S3",
+        "API Gateway",
+        "Amplify",
+        "TypeScript",
+        "REST API"
+      ],
+      "responsibilities": [
+        "Implemented a user-facing frontend using TypeScript and established its CI/CD pipeline leveraging GitHub and AWS Amplify",
+        "Architected backend Lambda function calls and API routing for both development and production environments, ensuring robust system scalability",
+        "Developed Python-based backend functions to integrate with Financial and LLM APIs to gather user data and provide insights",
+        "Created web scraping tools for live financial data fetching to ensure the system has access to the most current information",
+        "Implemented a search RAG (Retrieval-Augmented Generation) agent equipped with math tools and advanced search capabilities to provide accurate, data-driven responses",
+        "Designed and secured a database on AWS RDS using ECS for structured data and utilized S3 to store large-scale open-source data crucial for LLM operations"
+      ]
+    },
+    {
       "title": "Graduate Research Assistant (LLM Alignment and RL Model Implementation)",
       "company": "Computer Science Department, University of Illinois at Chicago",
       "location": "Chicago, IL",
       "start_date": "Aug 2024",
-      "end_date": "Present",
+      "end_date": "May 2025",
       "stack": [
         "PyTorch",
         "Kubernetes",
@@ -186,6 +213,55 @@
     }
   ],
   "projects": [
+    {
+      "name": "Notey - AI-Powered Audio Note Taking Platform 🎙️",
+      "tag": "Full Stack",
+      "stack": [
+        "React",
+        "TypeScript",
+        "FastAPI",
+        "Python",
+        "Supabase",
+        "Whisper.cpp",
+        "Google Gemini",
+        "Tailwind CSS"
+      ],
+      "description": "A comprehensive audio note-taking platform with real-time transcription, photo timeline synchronization, AI-powered summarization, and session replay. Features user authentication, event management, and export functionality to PDF and Google Docs.",
+      "github": "https://github.com/Hjhirp/Notey",
+      "demo": "Live demo available"
+    },
+    {
+      "name": "Voice Authentication Microservice (Authy) 🔐",
+      "tag": "AI/ML",
+      "stack": [
+        "Python",
+        "FastAPI",
+        "SpeechBrain",
+        "ECAPA-TDNN",
+        "WebSocket",
+        "Docker",
+        "Supabase",
+        "VAPI"
+      ],
+      "description": "Production-ready voice authentication microservice using SpeechBrain ECAPA-TDNN speaker recognition. Features voice enrollment, real-time verification via WebSocket, 192-dimensional embeddings, and comprehensive security with rate limiting and CORS.",
+      "github": "https://github.com/Hjhirp/VAPI_AUTHY_2",
+      "demo": "API Documentation available"
+    },
+    {
+      "name": "Find My Hospital (PatientHero) 🏥",
+      "tag": "Healthcare AI",
+      "stack": [
+        "n8n",
+        "Apify",
+        "AWS Bedrock",
+        "Claude 3 Sonnet",
+        "Google Maps API",
+        "Web Scraping",
+        "Workflow Automation"
+      ],
+      "description": "Emergency hospital locator that instantly finds nearest hospitals based on location. Uses real-time web scraping, AI-powered query handling, and workflow automation. Call 8285746304 for instant access to nearby medical facilities with addresses and contact details.",
+      "demo": "Call: 8285746304"
+    },
     {
       "name": "AI Chess Bot using GPT-2 Style Decoder Model",
       "tag": "NLP",

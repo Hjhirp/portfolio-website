@@ -238,20 +238,17 @@ const HomePage: React.FC<HomeProps> = ({ cvData, loading, error }) => {
   const typewriter = useTypewriter(TITLES);
 
   const languageIcons: Record<string, string> = {
-    python: require('../assets/images/python.svg').default,
-    java: require('../assets/images/java-14.svg').default,
-    'c++': require('../assets/images/c.svg').default,
-    pytorch: require('../assets/images/pytorch.svg').default,
-    tensorflow: require('../assets/images/tensorflow.svg').default,
-    docker: require('../assets/images/docker.svg').default,
-    kubernetes: require('../assets/images/kubernetes.svg').default,
-    bash: require('../assets/images/bash-2.svg').default,
-    aws: require('../assets/images/aws.svg').default,
-    pandas: require('../assets/images/pandas.svg').default,
-    scikit: require('../assets/images/scikit-learn.svg').default,
-    huggingface: require('../assets/images/hugging-face.svg').default,
-    fastapi: require('../assets/images/fastapi.svg').default,
-    wandb: require('../assets/images/wandb-dots-logo.svg').default,
+    python: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg',
+    pytorch: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg',
+    sql: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg',
+    aws: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg',
+    github: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg',
+    docker: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg',
+    kubernetes: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg',
+    'c++': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg',
+    typescript: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg',
+    react: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg',
+    scala: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/scala/scala-original.svg',
   };
 
   if (loading) {
@@ -274,9 +271,7 @@ const HomePage: React.FC<HomeProps> = ({ cvData, loading, error }) => {
     'Machine Learning Engineer focused on creating innovative AI solutions, with expertise in NLP, computer vision, cloud technologies, and a strong focus on reinforcement learning, large language models (LLMs), and intelligent agents.';
   
   // Tech skills
-  const programmingSkills = cleanStringArray(cvData.technical_skills.programming)
-    .slice(0, 4) // Get first 4 skills
-    .map((skill: string) => skill.split(' ')[0]); // Get just the language name without version info
+  const programmingSkills = ['Python', 'PyTorch', 'SQL', 'AWS', 'GitHub', 'Docker', 'Kubernetes', 'C++', 'TypeScript', 'React', 'Scala'];
   
   return (
     <>
