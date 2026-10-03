@@ -87,3 +87,7 @@ Classification operating figures and measurement-window details are private and 
 ## Layout revision
 
 Reviewed all eight notebook sections after feedback about empty space. Reduced section/card gaps and page width, removed the pipeline's fixed minimum explanation height, let explanations use the diagram width, compacted stage controls, and gave full-width headings a matching reading span. Paired content remains in responsive columns, and article metadata stays in aligned rows. Production metric groups wrap on narrow screens.
+
+## Case-study expansion
+
+The Quin, Mercor, AI chess, Notey, and LLM article descriptions were expanded using the AI Engineer Full Stack and Machine Learning Engineer Core resumes in Application Materials/Master Resumes/5 Resumes. AgentPod remains sourced from the owner brief. Case studies use a consistent overview, contribution, approach, and systems-question structure. No classification figures were introduced.

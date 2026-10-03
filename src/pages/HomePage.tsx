@@ -584,7 +584,7 @@ export default function HomePage({
                 </p>
                 <p>
                   {p.title.startsWith("Exploring")
-                    ? "A technical article on large language model concepts, alignment techniques, and practical implementation. It connects model fundamentals to the methods used to adapt their behavior."
+                    ? "A technical article on large language model concepts, alignment techniques, and practical implementation. It covers LoRA, QLoRA, supervised fine-tuning, and preference-based methods including RLHF, DPO, KTO, and ORPO."
                     : "A conference abstract on automated seizure detection in ambulatory EEG. It describes an ensemble of boosted-tree models evaluated against expert annotations."}
                 </p>
               </div>
@@ -671,7 +671,8 @@ export default function HomePage({
               <summary>Capture → transcribe → revisit</summary>
               <p>
                 Audio and photos enter the same event timeline. FastAPI services
-                connect transcription, Gemini summaries, and Supabase storage;
+                connect Whisper.cpp transcription, Gemini summaries, semantic search,
+                and Supabase storage;
                 replay restores the synchronized media so a summary can be
                 checked against the original context.
               </p>
