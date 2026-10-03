@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import Writing from "../components/notebook/Writing";
 import { CVData } from "../utils/cvUtils";
 import {
@@ -364,6 +365,7 @@ export default function HomePage({
               </p>
             </details>
             <small>MCP · knowledge graphs · n8n · Dify · Neo4j</small>
+            <p><Link to="/projects/agentpod">Read project details ↗</Link></p>
           </Entry>
           <Entry>
             <Label>Mercor / ML Engineer, Contract / Sep–Dec 2025</Label>
@@ -384,6 +386,7 @@ export default function HomePage({
             <small>
               LLM trajectories · experiment execution · self-evaluation
             </small>
+            <p><Link to="/projects/mercor">Read project details ↗</Link></p>
           </Entry>
         </Grid>
         <Entry>
@@ -408,6 +411,7 @@ export default function HomePage({
           <small>
             Hybrid RAG · reranking · structured tools · Python · AWS
           </small>
+            <p><Link to="/projects/quin">Read project details ↗</Link></p>
         </Entry>
       </NotebookSection>
       <NotebookSection
@@ -421,9 +425,10 @@ export default function HomePage({
             <Label>Research thread A / LLM alignment</Label>
             <h3>Beyond supervised fine-tuning.</h3>
             <p>
-              Exploring online and beyond-preference alignment, post-SFT
-              reinforcement learning beyond conventional RLHF, and distributed
-              training infrastructure.
+              Research into online alignment and reinforcement learning after
+              supervised fine-tuning. Distributed training and profiling support
+              experiments in how models learn from feedback beyond conventional
+              RLHF.
             </p>
             <Metric>
               <div>
@@ -471,8 +476,9 @@ export default function HomePage({
             <Label>Research thread B / Clinical reinforcement learning</Label>
             <h3>A policy for a patient digital twin.</h3>
             <p>
-              Guided policy gradients for dynamic treatment planning in head and
-              neck cancer, with symptom burden as part of the learning problem.
+              Research into guided policy gradients for dynamic treatment planning
+              in head and neck cancer. A simulated patient environment connects
+              treatment decisions to efficacy, toxicity, and symptom burden.
             </p>
             <Metric>
               <div>
@@ -546,6 +552,8 @@ export default function HomePage({
           <p>
             Master’s thesis: Guided Policy Gradient for Dynamic Treatment Plan
             Prediction with Symptom Burden Minimization in Head and Neck Cancer.
+            The work studies treatment-planning policies that consider symptom
+            burden alongside the outcomes modeled in a patient digital twin.
           </p>
           <p>
             <a
@@ -564,7 +572,8 @@ export default function HomePage({
                 p.title.startsWith("Automated"),
             )
             .map((p) => (
-              <p key={p.title}>
+              <div key={p.title}>
+                <p>
                 <a href={p.link}>{p.title} ↗</a>{" "}
                 <Label>
                   {p.date} /{" "}
@@ -572,7 +581,13 @@ export default function HomePage({
                     ? "Technical article"
                     : "AES 2024 conference abstract"}
                 </Label>
-              </p>
+                </p>
+                <p>
+                  {p.title.startsWith("Exploring")
+                    ? "A technical article on large language model concepts, alignment techniques, and practical implementation. It connects model fundamentals to the methods used to adapt their behavior."
+                    : "A conference abstract on automated seizure detection in ambulatory EEG. It describes an ensemble of boosted-tree models evaluated against expert annotations."}
+                </p>
+              </div>
             ))}
           <details>
             <summary>Earlier research / UI Health</summary>
@@ -601,9 +616,9 @@ export default function HomePage({
           <Label>Find-My-Hospital / voice-agent workflow</Label>
           <h3>From a phone call to a nearby hospital.</h3>
           <p>
-            A voice-agent prototype connects location discovery, candidate
-            hospitals, and live traffic / routing to identify an appropriate
-            nearby hospital.
+            A voice-agent prototype helps a caller find a nearby hospital.
+            Location discovery, hospital candidates, and live traffic and
+            routing evidence inform the workflow’s recommendation.
           </p>
           <Pipeline
             title="Voice-agent workflow"
@@ -648,8 +663,9 @@ export default function HomePage({
             <Label>Notey / multimodal memory</Label>
             <h3>Keep the context, not just the transcript.</h3>
             <p>
-              An AI memory companion combining audio transcription, synchronized
-              photos, summaries, and session replay.
+              An AI memory companion that captures audio and photos in a shared
+              timeline. Transcription, summaries, and session replay help revisit
+              an event while preserving its original context.
             </p>
             <details>
               <summary>Capture → transcribe → revisit</summary>
@@ -670,12 +686,13 @@ export default function HomePage({
             <Label>AI chess / model experiment</Label>
             <h3>Sequence modeling meets move selection.</h3>
             <p>
-              A 12-layer GPT-2-style decoder, trained using 48 A10 GPUs and
-              reward fine-tuning. Reported move-prediction results: 60% Top-1 /
-              85% Top-5.
+              A GPT-2-style decoder explores chess move prediction through
+              sequence modeling and reward fine-tuning. The experiment connects
+              distributed training to evaluation of candidate move predictions.
             </p>
             <small>
-              Prediction accuracy is specific to the reported experiment; it
+              Reported experiment: 12 layers, 48 A10 GPUs, 60% Top-1 and 85% Top-5
+              move prediction. Prediction accuracy is specific to this setting; it
               does not establish playing strength.
             </small>
             <details>
@@ -686,6 +703,7 @@ export default function HomePage({
                 violations.
               </p>
             </details>
+            <p><Link to="/projects/ai-chess">Read project details ↗</Link></p>
           </Entry>
         </Grid>
       </NotebookSection>
@@ -727,16 +745,18 @@ export default function HomePage({
               <Label>Building / Quin + Find-My-Hospital + agentPod</Label>
               <h3>Connect intelligence to decisions.</h3>
               <p>
-                Financial evidence, voice workflows, and a startup prototype for
-                agents that improve the systems they operate.
+                Built systems spanning financial evidence, voice workflows, and
+                natural-language automation. These projects connect model
+                reasoning to tools, execution, and decisions people can inspect.
               </p>
             </Entry>
             <Entry>
               <Label>Recent work / Mercor + Checksum</Label>
               <h3>Make action observable.</h3>
               <p>
-                Long-horizon evaluation, isolated execution, test repair, and
-                feedback loops that expose what the agent did.
+                Worked on long-horizon evaluation, isolated execution, and test
+                repair. Feedback loops connect agent decisions to execution
+                evidence so their behavior can be evaluated and improved.
               </p>
             </Entry>
           </div>

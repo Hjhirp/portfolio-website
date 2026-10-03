@@ -9,16 +9,17 @@ import {
 import { GlobalStyles } from "./styles/theme";
 import Layout from "./components/layout/Layout";
 import HomePage from "./pages/HomePage";
+import ProjectDetailPage from "./pages/ProjectDetailPage";
 import { useCV } from "./utils/cvUtils";
 function ScrollToSection() {
-  const { hash } = useLocation();
+  const { hash, pathname } = useLocation();
   useEffect(() => {
     if (hash) {
       document.getElementById(hash.slice(1))?.scrollIntoView();
     } else {
       window.scrollTo(0, 0);
     }
-  }, [hash]);
+  }, [hash, pathname]);
   return null;
 }
 export default function App() {
@@ -39,6 +40,7 @@ export default function App() {
               />
             }
           />
+          <Route path="/projects/:slug" element={<ProjectDetailPage />} />
           {Object.entries({
             about: "intro",
             experience: "systems",
