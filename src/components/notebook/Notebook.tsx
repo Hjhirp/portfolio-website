@@ -19,10 +19,26 @@ export const Label = styled.div`
   letter-spacing: 0.13em;
   color: #68665e;
 `;
+export const SectionLead = styled.p`
+  max-width: 78ch;
+  font-size: 18px;
+  line-height: 1.55;
+  margin: 0 0 24px;
+`;
+export const ProjectDescription = styled.p`
+  margin: 0 0 12px;
+  line-height: 1.55;
+`;
+export const ProjectSources = styled.footer`
+  a { display: inline-block; font-size: 14px; line-height: 1.5; }
+  small { display: block; color: #68665e; font-size: 12px; margin-top: 6px; line-height: 1.5; }
+`;
 export const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 32px;
+  column-gap: 32px;
+  row-gap: 16px;
+  align-items: start;
   > * {
     min-width: 0;
   }
@@ -33,20 +49,21 @@ export const Grid = styled.div`
 `;
 export const Entry = styled.article`
   border-top: 1px solid #ccc8bb;
-  padding: 24px 0;
+  padding: 20px 0;
   h3 {
     font-size: clamp(1.5rem, 2.5vw, 1.875rem);
     letter-spacing: -0.035em;
-    margin: 10px 0 14px;
+    margin: 8px 0 10px;
     line-height: 1.25;
     text-wrap: pretty;
   }
   p {
     max-width: 78ch;
-    line-height: 1.75;
+    line-height: 1.55;
+    margin: 0 0 12px;
   }
   details {
-    margin-top: 16px;
+    margin-top: 8px;
   }
   summary {
     cursor: pointer;
@@ -55,24 +72,25 @@ export const Entry = styled.article`
     padding: 8px 0;
   }
   details p {
-    margin-top: 14px;
+    margin-top: 8px;
   }
   small {
     display: block;
     color: #68665e;
     font-size: 12px;
-    margin-top: 16px;
+    margin-top: 8px;
+    line-height: 1.5;
   }
 `;
 const SectionShell = styled(motion.section)`
-  padding: 48px 0;
+  padding: 40px 0;
   border-top: 1px solid #ccc8bb;
   scroll-margin-top: 100px;
   h2 {
     font-size: clamp(32px, 4vw, 52px);
     letter-spacing: -0.045em;
     line-height: 1.12;
-    margin: 14px 0 24px;
+    margin: 12px 0 20px;
     max-width: 100%;
     text-wrap: balance;
   }

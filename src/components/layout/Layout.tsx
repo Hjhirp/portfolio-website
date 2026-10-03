@@ -64,7 +64,7 @@ export default function Layout({
             <a href="/#research">Research</a>
             <a href="/#builds">Builds</a>
             <a href="/#writing">Writing</a>
-            <a href="/#contact">Contact ↗</a>
+            <a href="/#contact">Contact</a>
           </nav>
         </Page>
       </Header>

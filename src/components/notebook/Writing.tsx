@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Label, NotebookSection } from "./Notebook";
+import { Label, NotebookSection, SectionLead } from "./Notebook";
 const Articles = styled.div`
   margin-top: 24px;
   border-top: 1px solid #ccc8bb;
@@ -26,13 +26,13 @@ const Article = styled.article`
     line-height: 1.3;
     font-weight: 600;
     letter-spacing: -0.025em;
-    margin: 9px 0 12px;
+    margin: 6px 0 8px;
     max-width: 46ch;
     text-wrap: pretty;
   }
   p {
     font-size: 1rem;
-    line-height: 1.7;
+    line-height: 1.55;
     max-width: 65ch;
     margin: 0;
   }
@@ -115,11 +115,11 @@ export default function Writing() {
       label="Writing / published at Checksum"
       title="Notes from the workbench."
     >
-      <p style={{ maxWidth: 680, fontSize: 18 }}>
+      <SectionLead>
         I write about the infrastructure around AI: what gets tested, what gets
         missed, and what it takes to keep an autonomous system useful after the
         demo.
-      </p>
+      </SectionLead>
       <Articles>
         {articles.map((article) => (
           <Article key={article.path}>

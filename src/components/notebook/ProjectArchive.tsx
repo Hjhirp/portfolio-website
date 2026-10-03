@@ -1,34 +1,40 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Entry, Grid, Label } from "./Notebook";
-const ArchiveGrid = styled(Grid)`
-  column-gap: 32px;
-  row-gap: 0;
+import { Label, ProjectDescription, ProjectSources } from "./Notebook";
+const ArchiveGrid = styled.div`
+  border-top: 1px solid #ccc8bb;
 `;
-const ArchiveEntry = styled(Entry)`
-  display: flex;
-  flex-direction: column;
-  padding: 20px 0;
+const ArchiveEntry = styled.article`
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.4fr);
+  column-gap: 40px;
+  padding: 24px 0;
+  border-bottom: 1px solid #ccc8bb;
   h3 {
-    margin: 8px 0 10px;
+    margin: 8px 0 0;
     font-size: clamp(22px, 2.2vw, 27px);
-    line-height: 1.2;
+    letter-spacing: -0.035em;
+    line-height: 1.25;
+    text-wrap: pretty;
   }
-  p {
-    margin: 0 0 16px;
-    line-height: 1.55;
+  @media (max-width: 760px) {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 20px 0;
   }
-  footer {
-    margin-top: auto;
-  }
-  footer a {
-    display: inline-block;
-    font-size: 14px;
-    line-height: 1.5;
-  }
-  small {
-    margin-top: 6px;
-    line-height: 1.5;
+`;
+const Categories = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 20px 0;
+  button { padding: 10px 14px; border: 1px solid #ccc8bb; background: transparent; color: #68665e; cursor: pointer; font: inherit; font-size: 14px; }
+  button[aria-pressed="true"] { background: #ad3e16; color: white; border-color: #ad3e16; }
+  @media (max-width: 500px) {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    button { padding: 8px; font-size: 12px; line-height: 1.35; min-height: 48px; }
   }
 `;
 const projects = [
@@ -51,12 +57,12 @@ export default function ProjectArchive() {
   return <div>
     <h3 style={{ fontSize: 28, margin: "32px 0 12px" }}>More from the project archive.</h3>
     <p>Product prototypes, research tools, and experiments from my GitHub repositories.</p>
-    <div role="group" aria-label="Project categories" style={{ display: "flex", flexWrap: "wrap", gap: 12, margin: "20px 0" }}>
-      {categories.map((name) => <button key={name} type="button" aria-pressed={category === name} onClick={() => setCategory(name)} style={{ padding: "10px 14px", border: "1px solid #ccc8bb", background: category === name ? "#ad3e16" : "transparent", color: category === name ? "#fff" : "#68665e", cursor: "pointer" }}>{name}</button>)}
-    </div>
+    <Categories role="group" aria-label="Project categories">
+      {categories.map((name) => <button key={name} type="button" aria-pressed={category === name} onClick={() => setCategory(name)}>{name}</button>)}
+    </Categories>
     <ArchiveGrid>{projects.filter((project) => project.category === category).map((project) => <ArchiveEntry key={project.repo}>
-      <Label>{project.name}</Label><h3>{project.title}</h3><p>{project.description}</p>
-      <footer><a href={`https://github.com/Hjhirp/${project.repo}`}>Explore the source ↗</a><small>{project.stack}</small></footer>
+      <div><Label>{project.name}</Label><h3>{project.title}</h3></div><div><ProjectDescription>{project.description}</ProjectDescription>
+      <ProjectSources><a href={`https://github.com/Hjhirp/${project.repo}`}>Explore the source ↗</a><small>{project.stack}</small></ProjectSources></div>
     </ArchiveEntry>)}</ArchiveGrid>
     <p><a href="https://github.com/Hjhirp?tab=repositories">Browse all repositories ↗</a></p>
   </div>;

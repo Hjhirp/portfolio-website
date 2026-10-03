@@ -7,6 +7,7 @@ import { CVData } from "../utils/cvUtils";
 import {
   Page,
   Label,
+  SectionLead,
   Grid,
   Entry,
   NotebookSection,
@@ -42,13 +43,15 @@ const Intro = styled.section`
   }
   .intro-copy {
     font-size: 18px;
+    line-height: 1.55;
+    margin: 0;
     max-width: 560px;
   }
   @media (max-width: 760px) {
     padding-top: 32px;
     .intro-context {
       grid-template-columns: 1fr;
-      gap: 6px;
+      gap: 20px;
     }
     .intro-role {
       border-left: 0;
@@ -154,11 +157,11 @@ export default function HomePage({
         label="Agent + systems engineering"
         title="An agent is only as useful as its feedback loop."
       >
-        <p style={{ maxWidth: "78ch", fontSize: 18 }}>
+        <SectionLead>
           My recent work connects planning to execution, observation, and
           repair. The interesting part is what happens after the first attempt
           fails.
-        </p>
+        </SectionLead>
         <Entry>
           <Label>
             Checksum AI / Lead ML + Systems Engineer / Dec 2025–present
@@ -785,11 +788,11 @@ export default function HomePage({
         label="Open questions"
         title="What I’m thinking about next."
       >
-        <p style={{ maxWidth: "78ch", fontSize: 18 }}>
+        <SectionLead>
           How can an agent tell when its own strategy is failing? How do we
           connect training-time objectives to reliable behavior in real
           environments?
-        </p>
+        </SectionLead>
         <Interests>
           {[
             "Agent self-evaluation",
@@ -808,11 +811,11 @@ export default function HomePage({
         label="Contact"
         title="Let’s compare notes."
       >
-        <p style={{ maxWidth: "78ch", fontSize: 18 }}>
+        <SectionLead>
           I’m interested in hard problems at the intersection of learning and
           systems, and in the people building what comes next. Research,
           engineering, or a future collaboration: I’d like to hear about it.
-        </p>
+        </SectionLead>
         <p>
           <a
             style={{
