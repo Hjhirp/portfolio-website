@@ -86,6 +86,7 @@ const SectionShell = styled(motion.section)`
   padding: 40px 0;
   border-top: 1px solid #ccc8bb;
   scroll-margin-top: 100px;
+  &:first-child { border-top: 0; }
   h1, h2 {
     font-size: clamp(32px, 4vw, 52px);
     letter-spacing: -0.045em;
@@ -134,9 +135,9 @@ export function NotebookSection({
 export type Stage = { name: string; detail: string };
 const Diagram = styled.div`
   border-top: 1px solid #ccc8bb;
-  border-bottom: 1px solid #ccc8bb;
   padding: 20px 0;
   margin: 24px 0;
+  &:last-child { margin-bottom: 0; }
   > p {
     max-width: 78ch;
     line-height: 1.65;
