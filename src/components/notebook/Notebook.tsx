@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useState, useEffect } from "react";
 import styled from "styled-components";
 import { motion, useReducedMotion } from "framer-motion";
 
@@ -188,9 +188,36 @@ export function Pipeline({
   stages: Stage[];
 }) {
   const [active, setActive] = useState(0);
+  const reducedMotion = useReducedMotion();
+  const [playing, setPlaying] = useState(true);
+  const [hovered, setHovered] = useState(false);
+  const [focused, setFocused] = useState(false);
+  const cycling = playing && !reducedMotion && !hovered && !focused;
+  useEffect(() => {
+    if (!cycling || stages.length < 2) return;
+    const timer = window.setInterval(() => {
+      if (!document.hidden) setActive((index) => (index + 1) % stages.length);
+    }, 5000);
+    return () => window.clearInterval(timer);
+  }, [cycling, stages.length]);
   return (
-    <Diagram>
-      <Label>{title}</Label>
+    <Diagram
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      onFocusCapture={() => setFocused(true)}
+      onBlurCapture={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setFocused(false);
+      }}
+    >
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 16 }}>
+        <Label>{title}</Label>
+        {!reducedMotion && <button
+          type="button"
+          aria-label={`${playing ? "Pause" : "Play"} ${title}`}
+          onClick={() => setPlaying((value) => !value)}
+          style={{ background: "none", border: "1px solid #ccc8bb", padding: "8px 12px", cursor: "pointer", color: "#68665e", fontSize: 12, flexShrink: 0 }}
+        >{playing ? "Pause" : "Play"}</button>}
+      </div>
       <Nodes>
         {stages.map((stage, i) => (
           <button
@@ -207,7 +234,7 @@ export function Pipeline({
           </button>
         ))}
       </Nodes>
-      <p aria-live="polite" style={{ fontSize: 14, marginBottom: 0 }}>
+      <p aria-live={cycling ? "off" : "polite"} style={{ fontSize: 14, marginBottom: 0 }}>
         <strong>{stages[active].name}.</strong> {stages[active].detail}
       </p>
     </Diagram>

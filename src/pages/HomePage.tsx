@@ -224,7 +224,7 @@ export default function HomePage({
             ]}
           />
           <details>
-            <summary>Inside the repair harness ↗</summary>
+            <summary>Inside the repair harness</summary>
             <p>
               Each agent runs in an isolated sandbox. A REPL-like runtime
               supports repeated execution of candidate fixes. The agent observes
@@ -356,7 +356,7 @@ export default function HomePage({
               general agent context to improve the workflows it produces.
             </p>
             <details>
-              <summary>System decisions ↗</summary>
+              <summary>System decisions</summary>
               <p>
                 Neo4j models workflow knowledge; MCP connects tools and context.
                 n8n and Dify support execution, with Python and Supabase behind
@@ -365,7 +365,7 @@ export default function HomePage({
               </p>
             </details>
             <small>MCP · knowledge graphs · n8n · Dify · Neo4j</small>
-            <p><Link to="/projects/agentpod">Read project details ↗</Link></p>
+            <p><Link to="/projects/agentpod">Read project details →</Link></p>
           </Entry>
           <Entry>
             <Label>Mercor / ML Engineer, Contract / Sep–Dec 2025</Label>
@@ -376,7 +376,7 @@ export default function HomePage({
               strategy, and execute experiments.
             </p>
             <details>
-              <summary>Training & evaluation evidence ↗</summary>
+              <summary>Training & evaluation evidence</summary>
               <p>
                 Work captured generated code, execution outputs, and
                 intermediate trajectory information for training and evaluation.
@@ -386,7 +386,7 @@ export default function HomePage({
             <small>
               LLM trajectories · experiment execution · self-evaluation
             </small>
-            <p><Link to="/projects/mercor">Read project details ↗</Link></p>
+            <p><Link to="/projects/mercor">Read project details →</Link></p>
           </Entry>
         </Grid>
         <Entry>
@@ -399,7 +399,7 @@ export default function HomePage({
             and AWS orchestration.
           </p>
           <details>
-            <summary>Retrieval → tools → verification ↗</summary>
+            <summary>Retrieval → tools → verification</summary>
             <p>
               Query decomposition feeds sparse and dense retrieval with
               cross-encoder reranking. Structured financial tools, iterative
@@ -411,7 +411,7 @@ export default function HomePage({
           <small>
             Hybrid RAG · reranking · structured tools · Python · AWS
           </small>
-            <p><Link to="/projects/quin">Read project details ↗</Link></p>
+            <p><Link to="/projects/quin">Read project details →</Link></p>
         </Entry>
       </NotebookSection>
       <NotebookSection
@@ -704,7 +704,7 @@ export default function HomePage({
                 violations.
               </p>
             </details>
-            <p><Link to="/projects/ai-chess">Read project details ↗</Link></p>
+            <p><Link to="/projects/ai-chess">Read project details →</Link></p>
           </Entry>
         </Grid>
       </NotebookSection>
