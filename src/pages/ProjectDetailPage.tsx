@@ -4,12 +4,12 @@ import { Page, Entry, Label, NotebookSection } from "../components/notebook/Note
 
 const projects: Record<string, { title: string; category: string; description: string; contribution: string; approach: string; lesson: string }> = {
   agentpod: {
-    title: "Workflows with a memory of the system.",
-    category: "agentPod / AI cofounder / prototype",
-    description: "A B2B prototype for creating, running, observing, and optimizing workflows from natural language. MCP and a knowledge graph provide context for an agent to improve the workflows it produces.",
-    contribution: "As an AI cofounder, I worked on the prototype’s agent and workflow system: connecting natural-language requests to tools, execution, and knowledge-graph context.",
-    approach: "Neo4j models workflow knowledge, while MCP connects tools and context. n8n and Dify support execution, with Python and Supabase behind the prototype. The product reached a working prototype with prospective design partners.",
-    lesson: "Workflow generation is the beginning of the problem. Execution history and system context give an agent evidence for deciding what to change on its next attempt.",
+    title: "From a business request to an inspectable workflow.",
+    category: "agentPod / AI cofounder / startup prototype",
+    description: "I cofounded agentPod to help businesses turn natural-language requests into automation they could inspect and refine. The product direction connected workflow creation, execution, observation, and improvement in one workspace.",
+    contribution: "I worked across the product prototype and agent architecture, connecting conversational interfaces with workflow knowledge and a model-facing tool layer. The repository spans a multi-provider chat application, a workflow workspace, documentation-to-graph experiments, and an MCP retrieval service.",
+    approach: "The retrieval system combines semantic search over n8n workflow templates with Neo4j graph lookup over documentation entities and relationships. MCP exposes template search, source JSON retrieval, graph queries, and web-documentation retrieval so the agent can work from concrete references rather than rely entirely on generated instructions.",
+    lesson: "The founder’s challenge was to make automation understandable after generation. The product direction paired a conversational entry point with a visual workflow workspace and an observability view, so users could inspect the proposed workflow and understand how it should be evaluated.",
   },
   mercor: {
     title: "Long horizons. Deliberate course corrections.", category: "Mercor / ML engineer / contract",
@@ -43,5 +43,28 @@ export default function ProjectDetailPage() {
     <Entry><h3>My contribution</h3><p>{project.contribution}</p></Entry>
     <Entry><h3>Approach</h3><p>{project.approach}</p></Entry>
     <Entry><h3>The systems question</h3><p>{project.lesson}</p></Entry>
+    {slug === "agentpod" && <>
+      <Entry><h3>Product experience</h3><p>
+        The chat prototype supports streaming responses across OpenAI, Gemini,
+        and Anthropic, with model selection, conversation history, and URL
+        context. A separate workflow workspace explores visual node editing,
+        workflow navigation, and an observability sidebar organized around run
+        health, agent quality, and cost.
+      </p></Entry>
+      <Entry><h3>Why a knowledge graph?</h3><p>
+        Workflow requests often describe a business goal without naming the
+        integrations or nodes needed to implement it. Vector search finds
+        relevant examples; a documentation graph adds connected entities and
+        relationships. Retrieving the original template JSON keeps the source
+        available for inspection and adaptation.
+      </p></Entry>
+      <Entry><h3>Stage and next challenge</h3><p>
+        We reached a working prototype and engaged prospective design partners.
+        The repos show implemented retrieval and chat components alongside an
+        early workflow editor and an observability interface using sample data.
+        Connecting those pieces into a fully instrumented execution and
+        optimization loop was the broader product direction.
+      </p></Entry>
+    </>}
   </NotebookSection></Page>;
 }

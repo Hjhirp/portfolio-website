@@ -34,7 +34,7 @@ test("pipeline stages expose their explanation to keyboard users", () => {
   expect(screen.getByText(/Inspect the evidence/)).toBeInTheDocument();
 });
 
-test("pipeline loops and can be paused", () => {
+test("pipeline loops and hover temporarily overrides it", () => {
   jest.useFakeTimers();
   const { unmount } = render(<Pipeline title="Auto loop" stages={[
     { name: "First", detail: "First description." },
@@ -44,8 +44,12 @@ test("pipeline loops and can be paused", () => {
   expect(screen.getByRole("button", { name: /02 Second/ })).toHaveAttribute("aria-pressed", "true");
   act(() => { jest.advanceTimersByTime(5000); });
   expect(screen.getByRole("button", { name: /01 First/ })).toHaveAttribute("aria-pressed", "true");
-  fireEvent.click(screen.getByRole("button", { name: "Pause Auto loop" }));
+  const second = screen.getByRole("button", { name: /02 Second/ });
+  fireEvent.mouseEnter(second);
   act(() => { jest.advanceTimersByTime(10000); });
+  expect(second).toHaveAttribute("aria-pressed", "true");
+  fireEvent.mouseLeave(second);
+  act(() => { jest.advanceTimersByTime(5000); });
   expect(screen.getByRole("button", { name: /01 First/ })).toHaveAttribute("aria-pressed", "true");
   unmount();
   jest.useRealTimers();

@@ -91,3 +91,11 @@ Reviewed all eight notebook sections after feedback about empty space. Reduced s
 ## Case-study expansion
 
 The Quin, Mercor, AI chess, Notey, and LLM article descriptions were expanded using the AI Engineer Full Stack and Machine Learning Engineer Core resumes in Application Materials/Master Resumes/5 Resumes. AgentPod remains sourced from the owner brief. Case studies use a consistent overview, contribution, approach, and systems-question structure. No classification figures were introduced.
+
+## AgentPod repository review
+
+Reviewed the AgentPOD-AI webapp, chatbot, KG-n8n-MCP, and kgagents repositories. Confirmed multi-provider streaming chat, persistent history, MCP client, template/vector retrieval and graph-based documentation retrieval. WorkflowEditor is an early ReactFlow editor; ObservabilitySidebar uses sample data. Portfolio copy describes these as prototype components, without implying live production telemetry or completed autonomous optimization. No credentials, customer data, or source code were copied into the portfolio.
+
+## Public project archive
+
+Added 12 public projects from the owner’s GitHub inventory and READMEs. Product prototypes are labeled as prototypes or experiments; no README marketing claims of production readiness, clinical benefit, security guarantees, or performance improvements are presented as verified outcomes. Re-Search is attributed as a team project. Original source links are retained.

@@ -189,10 +189,9 @@ export function Pipeline({
 }) {
   const [active, setActive] = useState(0);
   const reducedMotion = useReducedMotion();
-  const [playing, setPlaying] = useState(true);
   const [hovered, setHovered] = useState(false);
   const [focused, setFocused] = useState(false);
-  const cycling = playing && !reducedMotion && !hovered && !focused;
+  const cycling = !reducedMotion && !hovered && !focused;
   useEffect(() => {
     if (!cycling || stages.length < 2) return;
     const timer = window.setInterval(() => {
@@ -209,15 +208,7 @@ export function Pipeline({
         if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setFocused(false);
       }}
     >
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 16 }}>
-        <Label>{title}</Label>
-        {!reducedMotion && <button
-          type="button"
-          aria-label={`${playing ? "Pause" : "Play"} ${title}`}
-          onClick={() => setPlaying((value) => !value)}
-          style={{ background: "none", border: "1px solid #ccc8bb", padding: "8px 12px", cursor: "pointer", color: "#68665e", fontSize: 12, flexShrink: 0 }}
-        >{playing ? "Pause" : "Play"}</button>}
-      </div>
+      <Label>{title}</Label>
       <Nodes>
         {stages.map((stage, i) => (
           <button

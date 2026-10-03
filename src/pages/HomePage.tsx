@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import ProjectArchive from "../components/notebook/ProjectArchive";
 import Writing from "../components/notebook/Writing";
 import { CVData } from "../utils/cvUtils";
 import {
@@ -349,18 +350,32 @@ export default function HomePage({
         <Grid>
           <Entry>
             <Label>agentPod / AI Co-Founder</Label>
-            <h3>Workflows with a memory of the system.</h3>
+            <h3>From a business request to an inspectable workflow.</h3>
             <p>
-              A B2B prototype for creating, running, observing, and optimizing
-              workflows from natural language. MCP and a knowledge graph give a
-              general agent context to improve the workflows it produces.
+              I cofounded agentPod to help businesses turn natural-language
+              requests into automation they could inspect and refine. The
+              prototype brought together conversational AI, workflow-template
+              retrieval, and a visual workflow workspace.
+            </p>
+            <p>
+              The central idea was to ground workflow creation in existing
+              templates and tool documentation. I worked across the product and
+              agent system, connecting a model-facing MCP layer to semantic
+              search and Neo4j knowledge graphs.
             </p>
             <details>
               <summary>System decisions</summary>
               <p>
-                Neo4j models workflow knowledge; MCP connects tools and context.
-                n8n and Dify support execution, with Python and Supabase behind
-                the prototype. The product had a working prototype and
+                The retrieval layer combines vector search over n8n templates
+                with graph-based lookup of documentation entities and their
+                relationships. MCP exposes template search, source JSON
+                retrieval, and web-documentation tools to the agent.
+              </p>
+              <p>
+                The product experiments included streaming chat across model
+                providers, persistent conversations, a visual node editor, and
+                a prototype observability view for run health, agent quality,
+                and cost. The startup reached a working prototype and
                 prospective design partners.
               </p>
             </details>
@@ -707,6 +722,7 @@ export default function HomePage({
             <p><Link to="/projects/ai-chess">Read project details →</Link></p>
           </Entry>
         </Grid>
+        <ProjectArchive />
       </NotebookSection>
       <Writing />
       <NotebookSection
