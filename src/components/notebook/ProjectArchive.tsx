@@ -1,6 +1,17 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Label, ProjectDescription, ProjectSources } from "./Notebook";
+const ArchiveHeading = styled.header`
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  margin: 32px 0 12px;
+  h3 { font-size: 26px; margin: 0; }
+  a { font-size: 14px; white-space: nowrap; color: #92320f; padding: 8px 0; }
+  a:hover { text-decoration: underline; text-underline-offset: 4px; }
+`;
 const ArchiveGrid = styled.div`
   border-top: 1px solid var(--rule);
 `;
@@ -10,6 +21,7 @@ const ArchiveEntry = styled.article`
   column-gap: 40px;
   padding: 24px 0;
   border-bottom: 1px solid var(--rule);
+  &:last-child { border-bottom: 0; padding-bottom: 0; }
   h3 {
     margin: 8px 0 0;
     font-size: var(--project-title);
@@ -55,7 +67,10 @@ const categories = ["Agents & products", "Language & retrieval", "ML & simulatio
 export default function ProjectArchive() {
   const [category, setCategory] = useState(categories[0]);
   return <div>
-    <h3 style={{ fontSize: 26, margin: "32px 0 12px" }}>More from the project archive.</h3>
+    <ArchiveHeading>
+      <h3>More from the project archive.</h3>
+      <a href="https://github.com/Hjhirp?tab=repositories">View all on GitHub ↗</a>
+    </ArchiveHeading>
     <p>Product prototypes, research tools, and experiments from my GitHub repositories.</p>
     <Categories role="group" aria-label="Project categories">
       {categories.map((name) => <button key={name} type="button" aria-pressed={category === name} onClick={() => setCategory(name)}>{name}</button>)}
@@ -64,6 +79,5 @@ export default function ProjectArchive() {
       <div><Label>{project.name}</Label><h3>{project.title}</h3></div><div><ProjectDescription>{project.description}</ProjectDescription>
       <ProjectSources><a href={`https://github.com/Hjhirp/${project.repo}`}>Explore the source ↗</a><small>{project.stack}</small></ProjectSources></div>
     </ArchiveEntry>)}</ArchiveGrid>
-    <p><a href="https://github.com/Hjhirp?tab=repositories">Browse all repositories ↗</a></p>
   </div>;
 }
