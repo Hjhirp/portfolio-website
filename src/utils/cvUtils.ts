@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 export type CVData = {
   personal_information: {
@@ -80,16 +80,16 @@ export const useCV = () => {
       try {
         // In production, this would be a proper API call
         // For local development, we're using a direct import
-        const response = await fetch('/cv.json');
+        const response = await fetch(`${process.env.PUBLIC_URL || ""}/cv.json`);
         if (!response.ok) {
-          throw new Error('Failed to fetch CV data');
+          throw new Error("Failed to fetch CV data");
         }
         const data = await response.json();
         setCV(data);
         setLoading(false);
       } catch (err) {
-        console.error('Error fetching CV data:', err);
-        setError('Failed to load CV data. Please try again later.');
+        console.error("Error fetching CV data:", err);
+        setError("Failed to load CV data. Please try again later.");
         setLoading(false);
       }
     };
@@ -102,13 +102,13 @@ export const useCV = () => {
 
 // Helper to strip citation references like [1, 2] from strings
 export const stripReferences = (text: string): string => {
-  return text.replace(/\s*\[\d+(?:,\s*\d+)*\]\s*/g, '');
+  return text.replace(/\s*\[\d+(?:,\s*\d+)*\]\s*/g, "");
 };
 
 // Clean an array of strings by removing references
 export const cleanStringArray = (arr: string[] | undefined): string[] => {
   if (!arr) return [];
-  return arr.map(item => stripReferences(item));
+  return arr.map((item) => stripReferences(item));
 };
 
 // Helper to format date ranges for display
@@ -117,13 +117,15 @@ export const formatDateRange = (startDate: string, endDate: string): string => {
 };
 
 // Helper to group projects by technology/stack
-export const groupProjectsByTech = (projects: CVData['projects'] | undefined) => {
+export const groupProjectsByTech = (
+  projects: CVData["projects"] | undefined,
+) => {
   if (!projects) return {};
-  
-  const techGroups: { [key: string]: Array<typeof projects[0]> } = {};
-  
-  projects.forEach(project => {
-    project.stack.forEach(tech => {
+
+  const techGroups: { [key: string]: Array<(typeof projects)[0]> } = {};
+
+  projects.forEach((project) => {
+    project.stack.forEach((tech) => {
       const cleanTech = stripReferences(tech);
       if (!techGroups[cleanTech]) {
         techGroups[cleanTech] = [];
@@ -131,6 +133,6 @@ export const groupProjectsByTech = (projects: CVData['projects'] | undefined) =>
       techGroups[cleanTech].push(project);
     });
   });
-  
+
   return techGroups;
 };

@@ -1,366 +1,805 @@
-import React, { useEffect, useRef, useState } from 'react';
-import styled from 'styled-components';
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import { theme } from '../styles/theme';
-import { Container, Button } from '../components/common/StyledComponents';
-import { stripReferences, cleanStringArray, CVData } from '../utils/cvUtils';
-import profileImage from '../assets/images/profile.jpg';
-
-interface HomeProps {
+import React from "react";
+import styled from "styled-components";
+import Writing from "../components/notebook/Writing";
+import { CVData } from "../utils/cvUtils";
+import {
+  Page,
+  Label,
+  Grid,
+  Entry,
+  NotebookSection,
+  Pipeline,
+} from "../components/notebook/Notebook";
+const Intro = styled.section`
+  padding: 48px 0 40px;
+  h1 {
+    font-size: clamp(2.5rem, 5.7vw, 4.5rem);
+    font-weight: 500;
+    letter-spacing: -0.055em;
+    line-height: 1.04;
+    margin: 24px 0 32px;
+    max-width: 100%;
+    text-wrap: balance;
+  }
+  .intro-context {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+    gap: 56px;
+    align-items: start;
+  }
+  .intro-role {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 14px;
+    color: #68665e;
+    line-height: 1.6;
+  }
+  .intro-role li + li {
+    margin-top: 8px;
+  }
+  .intro-copy {
+    font-size: 18px;
+    max-width: 560px;
+  }
+  @media (max-width: 760px) {
+    padding-top: 32px;
+    .intro-context {
+      grid-template-columns: 1fr;
+      gap: 6px;
+    }
+    .intro-role {
+      border-left: 0;
+      padding-left: 0;
+      max-width: none;
+    }
+  }
+`;
+const Index = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 1px solid #ccc8bb;
+  margin-top: 20px;
+  gap: 30px;
+  padding-top: 20px;
+  a {
+    font-size: 14px;
+  }
+  @media (max-width: 500px) {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+`;
+const Metric = styled.div`
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin: 20px 0;
+  strong {
+    display: block;
+    color: #ad3e16;
+    font-size: 42px;
+    letter-spacing: -0.04em;
+  }
+  span {
+    font-size: 12px;
+    display: block;
+    max-width: 170px;
+  }
+`;
+const Interests = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  span {
+    border: 1px solid #ccc8bb;
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+`;
+export default function HomePage({
+  cvData,
+}: {
   cvData: CVData | null;
   loading: boolean;
   error: string | null;
-}
-
-const TITLES = [
-  'Machine Learning Engineer',
-  'NLP Engineer',
-  'AI Engineer',
-  'Data Scientist',
-  'Machine Learning Researcher',
-];
-
-const HeroSection = styled.section`
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  position: relative;
-  background: ${({ theme }) => theme.colors.navy};
-  color: ${({ theme }) => theme.colors.slate};
-  overflow: hidden;
-`;
-
-const HeroContainer = styled(Container)`
-  position: relative;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  gap: 4rem;
-
-  @media (max-width: ${theme.breakpoints.md}) {
-    flex-direction: column-reverse;
-    gap: 2rem;
-  }
-`;
-
-const HeroContent = styled.div`
-  max-width: 700px;
-  color: ${({ theme }) => theme.colors.dark};
-  
-  @media (min-width: ${theme.breakpoints.lg}) {
-    margin-left: 10%;
-  }
-`;
-
-const HeroTitle = styled(motion.h1)`
-  font-size: 3.5rem;
-  margin-bottom: ${theme.spacing.md};
-  line-height: 1.2;
-  
-  @media (max-width: ${theme.breakpoints.md}) {
-    font-size: 2.5rem;
-  }
-`;
-
-const TypewriterText = styled(motion.div)`
-  font-size: ${theme.fontSizes.xl};
-  color: ${theme.colors.primary};
-  min-height: 2.5rem;
-  font-family: ${theme.fonts.secondary};
-  margin-bottom: ${theme.spacing.md};
-  letter-spacing: 1px;
-  @media (max-width: ${theme.breakpoints.md}) {
-    font-size: 1.1rem;
-  }
-`;
-
-const HeroSubtitle = styled(motion.p)`
-  font-size: ${theme.fontSizes.lg};
-  margin-bottom: ${theme.spacing.xl};
-  color: ${theme.colors.gray};
-  max-width: 600px;
-`;
-
-const ButtonWrapper = styled(motion.div)`
-  display: flex;
-  gap: ${theme.spacing.md};
-  margin-top: ${theme.spacing.lg};
-  
-  @media (max-width: ${theme.breakpoints.sm}) {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-`;
-
-const StyledButton = styled(Button)<{ primary?: boolean }>`
-  min-width: 160px;
-  padding: 12px 24px;
-  background: ${({ primary, theme }) =>
-    primary ? theme.colors.darkGray : 'transparent'};
-  color: ${({ primary, theme }) =>
-    primary ? theme.colors.lightestSlate : theme.colors.primary};
-  border: ${({ primary, theme }) =>
-    primary ? 'none' : `1.5px solid ${theme.colors.primary}`};
-  box-shadow: none;
-  transition: ${theme.transitions.default};
-  &:hover {
-    background: ${({ primary, theme }) =>
-      primary ? theme.colors.primary : theme.colors.highlight};
-    color: ${({ primary, theme }) =>
-      primary ? theme.colors.navy : theme.colors.primary};
-  }
-`;
-
-const BackgroundPattern = styled.div`
-  position: absolute;
-  right: -150px;
-  top: -100px;
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, rgba(74, 108, 250, 0.15) 0%, rgba(74, 108, 250, 0.05) 70%, rgba(74, 108, 250, 0) 100%);
-  border-radius: 50%;
-  z-index: 1;
-`;
-
-const BackgroundPattern2 = styled.div`
-  position: absolute;
-  left: -200px;
-  bottom: -200px;
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, rgba(248, 112, 96, 0.1) 0%, rgba(248, 112, 96, 0.03) 70%, rgba(248, 112, 96, 0) 100%);
-  border-radius: 50%;
-  z-index: 1;
-`;
-
-const TechStack = styled(motion.div)`
-  margin-top: ${theme.spacing.xl};
-`;
-
-const TechTitle = styled.p`
-  font-size: ${theme.fontSizes.sm};
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: ${theme.colors.gray};
-  margin-bottom: ${theme.spacing.sm};
-`;
-
-const TechList = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: ${theme.spacing.md};
-  align-items: center;
-`;
-
-const TechItem = styled(motion.div)`
-  display: flex;
-  align-items: center;
-  font-size: ${theme.fontSizes.md};
-  color: ${theme.colors.dark};
-  font-weight: 500;
-  
-  svg {
-    margin-right: ${theme.spacing.xs};
-    font-size: 1.25rem;
-  }
-`;
-
-const LoadingState = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 60vh;
-  font-size: ${theme.fontSizes.lg};
-  color: ${theme.colors.gray};
-`;
-
-const ErrorState = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 60vh;
-  font-size: ${theme.fontSizes.lg};
-  color: ${theme.colors.secondary};
-  flex-direction: column;
-  
-  button {
-    margin-top: ${theme.spacing.lg};
-  }
-`;
-
-const Summary = styled.p`
-  text-align: justify;
-  color: ${({ theme }) => theme.colors.dark};
-`;
-
-const ProfileImage = styled.img`
-  width: 300px;
-  height: 300px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 4px solid ${({ theme }) => theme.colors.primary};
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-
-  @media (max-width: ${theme.breakpoints.md}) {
-    width: 200px;
-    height: 200px;
-  }
-`;
-
-function useTypewriter(words: string[], typingSpeed = 80, pause = 1200) {
-  const [index, setIndex] = useState(0);
-  const [displayed, setDisplayed] = useState('');
-  const [deleting, setDeleting] = useState(false);
-  const timeout = useRef<number>(undefined);
-
-  useEffect(() => {
-    const current = words[index];
-    if (!deleting && displayed.length < current.length) {
-      timeout.current = window.setTimeout(() => setDisplayed(current.slice(0, displayed.length + 1)), typingSpeed);
-    } else if (!deleting && displayed.length === current.length) {
-      timeout.current = window.setTimeout(() => setDeleting(true), pause);
-    } else if (deleting && displayed.length > 0) {
-      timeout.current = window.setTimeout(() => setDisplayed(current.slice(0, displayed.length - 1)), typingSpeed / 2);
-    } else if (deleting && displayed.length === 0) {
-      setDeleting(false);
-      setIndex((prev) => (prev + 1) % words.length);
-    }
-    return () => {
-      if (timeout.current) window.clearTimeout(timeout.current);
-    };
-  }, [displayed, deleting, index, words, typingSpeed, pause]);
-
-  return displayed;
-}
-
-const HomePage: React.FC<HomeProps> = ({ cvData, loading, error }) => {
-  const typewriter = useTypewriter(TITLES);
-
-  const languageIcons: Record<string, string> = {
-    python: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg',
-    pytorch: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg',
-    sql: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg',
-    aws: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg',
-    github: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg',
-    docker: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg',
-    kubernetes: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg',
-    'c++': 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg',
-    typescript: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg',
-    react: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg',
-    scala: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/scala/scala-original.svg',
-  };
-
-  if (loading) {
-    return <LoadingState>Loading...</LoadingState>;
-  }
-  
-  if (error || !cvData) {
-    return (
-      <ErrorState>
-        <p>{error || "Failed to load data"}</p>
-        <Button primary onClick={() => window.location.reload()}>Retry</Button>
-      </ErrorState>
-    );
-  }
-  
-  // Extract data from CV
-  const name = stripReferences(cvData.personal_information.name);
-  // Use the About Me text from the footer (short, focused, with RL, LLM, agents)
-  const firstSummary =
-    'Machine Learning Engineer focused on creating innovative AI solutions, with expertise in NLP, computer vision, cloud technologies, and a strong focus on reinforcement learning, large language models (LLMs), and intelligent agents.';
-  
-  // Tech skills
-  const programmingSkills = ['Python', 'PyTorch', 'SQL', 'AWS', 'GitHub', 'Docker', 'Kubernetes', 'C++', 'TypeScript', 'React', 'Scala'];
-  
+}) {
+  const info = cvData?.personal_information;
   return (
-    <>
-      <HeroSection>
-        <BackgroundPattern />
-        <BackgroundPattern2 />
-        <HeroContainer>
-          <HeroContent>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5 }}
+    <Page>
+      <Intro id="intro">
+        <div>
+          <Label>01 / Field notes / ML, systems & reinforcement learning</Label>
+          <h1>
+            From the learning loop
+            <br />
+            to the production{" "}
+            <span
+              style={{
+                fontFamily: "Georgia,serif",
+                fontStyle: "italic",
+                color: "#ad3e16",
+              }}
             >
-              <HeroTitle
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2, duration: 0.5 }}
-              >
-                Hi, I'm <span style={{ color: theme.colors.primary }}>{name.split(' ')[0]}</span>
-              </HeroTitle>
-              <TypewriterText
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.3, duration: 0.5 }}
-                aria-label="Typewriter roles"
-              >
-                {typewriter}
-                <span style={{ color: theme.colors.primary, opacity: 0.7 }}>|</span>
-              </TypewriterText>
-              <HeroSubtitle
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4, duration: 0.5 }}
-              >
-                {firstSummary}
-              </HeroSubtitle>
-              
-              <ButtonWrapper
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6, duration: 0.5 }}
-              >
-                <StyledButton as={Link} to="/experience" primary>
-                  <i className="fas fa-briefcase"></i> View Experience
-                </StyledButton>
-                <StyledButton as={Link} to="/projects" primary>
-                  <i className="fas fa-code"></i> View Projects
-                </StyledButton>
-                <StyledButton as={Link} to="/contact" outlined>
-                  <i className="fas fa-envelope"></i> Contact Me
-                </StyledButton>
-              </ButtonWrapper>
-              
-              <TechStack
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.8, duration: 0.5 }}
-              >
-                <TechTitle>Tech I Work With</TechTitle>
-                <TechList>
-                  {programmingSkills.filter(skill => skill.toLowerCase() !== 'scala').map((skill: string, index: number) => (
-                    <TechItem
-                      key={skill}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.9 + (index * 0.1) }}
-                    >
-                      {languageIcons[skill.toLowerCase()] ? (
-                        <img src={languageIcons[skill.toLowerCase()]} alt={skill} style={{ width: 24, height: 24, marginRight: 8, verticalAlign: 'middle' }} />
-                      ) : null}
-                      <i className={`devicon-${skill.toLowerCase()}-plain`}></i>
-                      {skill}
-                    </TechItem>
-                  ))}
-                </TechList>
-              </TechStack>
-            </motion.div>
-          </HeroContent>
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.6 }}
+              runtime.
+            </span>
+          </h1>
+          <div className="intro-context">
+            <p className="intro-copy">
+              I’m Harshal Hirpara. I build intelligent systems that learn, act,
+              and improve, with the infrastructure to understand what happens
+              along the way.
+            </p>
+            <ul className="intro-role" aria-label="Background">
+              <li>ML &amp; systems engineer</li>
+              <li>RL &amp; LLM researcher</li>
+              <li>Former AI startup cofounder</li>
+            </ul>
+          </div>
+          <Index>
+            <a href="#systems">
+              <Label>Engineering</Label>Agents that operate in real systems ↓
+            </a>
+            <a href="#research">
+              <Label>Research</Label>Learning loops that change behavior ↓
+            </a>
+          </Index>
+        </div>
+      </Intro>
+      <NotebookSection
+        id="systems"
+        number="02"
+        label="Agent + systems engineering"
+        title="An agent is only as useful as its feedback loop."
+      >
+        <p style={{ maxWidth: "78ch", fontSize: 18 }}>
+          My recent work connects planning to execution, observation, and
+          repair. The interesting part is what happens after the first attempt
+          fails.
+        </p>
+        <Entry>
+          <Label>
+            Checksum AI / Lead ML + Systems Engineer / Dec 2025–present
+          </Label>
+          <h3>Testing the contract. Closing the loop.</h3>
+          <Grid>
+            <div>
+              <p>
+                Protocol-agnostic backend contract testing for REST and gRPC:
+                turn API artifacts into executable tests, run them nightly, and
+                diagnose failures.
+              </p>
+              <p>
+                A maintenance agent analyzes network calls and previous
+                successful runs to repair stale tests or surface likely product
+                bugs.
+              </p>
+            </div>
+            <div>
+              <p>
+                For Playwright healing, I work on isolated agent sandboxes and a
+                rerun runtime: try a candidate repair, observe the result, and
+                iterate.
+              </p>
+              <p>
+                The harness migration moves from a Pydantic-based setup toward
+                OpenCode + Daytona, with centralized factory and routing logic.
+              </p>
+            </div>
+          </Grid>
+          <Pipeline
+            title="Conceptual contract-testing architecture"
+            stages={[
+              {
+                name: "Artifacts",
+                detail:
+                  "Swagger / OpenAPI, documentation and existing tests provide the starting evidence.",
+              },
+              {
+                name: "Detect flows",
+                detail:
+                  "A flow detection agent identifies the interactions to test.",
+              },
+              {
+                name: "Generate tests",
+                detail:
+                  "A test generation agent creates pytest tests for backend contracts.",
+              },
+              {
+                name: "Execute",
+                detail:
+                  "Nightly end-to-end execution produces failures and execution evidence.",
+              },
+              {
+                name: "Diagnose",
+                detail:
+                  "Compare network calls and previous successful results to understand the failure.",
+              },
+              {
+                name: "Repair / report",
+                detail:
+                  "Repair a stale test, or surface a likely product bug for investigation.",
+              },
+            ]}
+          />
+          <details>
+            <summary>Inside the repair harness ↗</summary>
+            <p>
+              Each agent runs in an isolated sandbox. A REPL-like runtime
+              supports repeated execution of candidate fixes. The agent observes
+              results before choosing a working repair; a separate
+              classification agent distinguishes healable test failures from
+              likely product bugs.
+            </p>
+            <p>
+              Architecture is shown at a conceptual level; implementation and
+              proprietary details are intentionally omitted.
+            </p>
+          </details>
+          <small>REST · gRPC · pytest · Playwright · OpenCode · Daytona</small>
+        </Entry>
+        <Entry>
+          <Label>Checksum / failure classification / field note</Label>
+          <h3>Same timeout. Different failure.</h3>
+          <p>
+            A checkout test waits for an order confirmation and times out. The
+            order might have failed, the page might have changed, or a helper
+            might have stopped waiting too soon. The symptom alone cannot tell
+            you which system needs fixing.
+          </p>
+          <p>
+            Our classification work connects application behavior, the test’s
+            expectations, and evidence from the rest of the run. An
+            application-bug verdict keeps the failure out of automatic healing;
+            a broken-test verdict makes it eligible for repair.
+          </p>
+          <Grid>
+            <div>
+              <h4>Start with what succeeded.</h4>
+              <p>
+                We expanded network evidence beyond failed requests to include
+                successful operations, request origins, and connection-path
+                context. A successful order request can challenge an outage
+                explanation without proving that the whole checkout worked.
+              </p>
+              <h4>Read the assumptions behind the timeout.</h4>
+              <p>
+                Source retrieval includes the code at the failure location when
+                available, so shared waiting and retry helpers can be examined
+                alongside the registered test. Missing page snapshots are made
+                explicit in the explanation.
+              </p>
+            </div>
+            <div>
+              <h4>Give related failures shared context.</h4>
+              <p>
+                Matching error, page, and trace evidence helps keep related
+                failures together in classification sessions. Every test still
+                receives its own verdict: a common error screen does not erase
+                differences in what each test expected.
+              </p>
+              <h4>Make the suspected cause inspectable.</h4>
+              <p>
+                Application-bug verdicts include a suspected cause and title.
+                Related verdicts can be organized into an issue group while
+                retaining the individual failed tests and their evidence.
+              </p>
+            </div>
+          </Grid>
+          <details>
+            <summary>
+              Evaluation / organization, latency, and correctness
+            </summary>
+            <p>
+              Grouping related failures makes a run easier to investigate.
+              Faster classification shortens the feedback loop. Those operating
+              measurements are separate from diagnostic accuracy.
+            </p>
+            <p>
+              Accuracy evaluation needs independently reviewed failures,
+              including application bugs incorrectly labeled as broken tests.
+              Repair quality needs a separate check that the original test
+              intent survives.
+            </p>
+          </details>
+          <p style={{ marginTop: 24 }}>
+            The engineering question I keep coming back to: does the proposed
+            repair fix the test’s assumption, or conceal a regression in the
+            application? The evidence should help a reviewer tell the
+            difference.
+          </p>
+        </Entry>
+        <Grid>
+          <Entry>
+            <Label>Design note / preserve the question</Label>
+            <h3>A green run is evidence. It isn’t the whole answer.</h3>
+            <p>
+              A test generator can make a difficult journey easier until it
+              passes. That changes what the test means. In my writing, I explore
+              how to compare the proposed journey with the code that actually
+              ships, and how to expose the checks that could not run.
+            </p>
+            <p>
+              The useful artifact is a test an engineer can inspect, with enough
+              context to understand its boundaries.
+            </p>
+            <a href="https://checksum.ai/blog/api-testing-with-ai-isnt-just-claudes-job">
+              Read the architecture note ↗
+            </a>
+          </Entry>
+          <Entry>
+            <Label>Design note / separate reasoning from execution</Label>
+            <h3>Give the agent room to try. Keep the runner predictable.</h3>
+            <p>
+              Diagnosis needs exploration: inspect evidence, propose a repair,
+              execute it, and reconsider. Routine test execution needs a stable
+              runtime. Keeping those responsibilities distinct makes the result
+              easier to interpret.
+            </p>
+            <p>
+              A repair should restore the test’s intent. A passing result alone
+              cannot tell you whether that happened.
+            </p>
+            <a href="https://checksum.ai/blog/announcing-the-api-agent">
+              Read about the API Agent ↗
+            </a>
+          </Entry>
+        </Grid>
+        <Grid>
+          <Entry>
+            <Label>agentPod / AI Co-Founder</Label>
+            <h3>Workflows with a memory of the system.</h3>
+            <p>
+              A B2B prototype for creating, running, observing, and optimizing
+              workflows from natural language. MCP and a knowledge graph give a
+              general agent context to improve the workflows it produces.
+            </p>
+            <details>
+              <summary>System decisions ↗</summary>
+              <p>
+                Neo4j models workflow knowledge; MCP connects tools and context.
+                n8n and Dify support execution, with Python and Supabase behind
+                the prototype. The product had a working prototype and
+                prospective design partners.
+              </p>
+            </details>
+            <small>MCP · knowledge graphs · n8n · Dify · Neo4j</small>
+          </Entry>
+          <Entry>
+            <Label>Mercor / ML Engineer, Contract / Sep–Dec 2025</Label>
+            <h3>Long horizons. Deliberate course corrections.</h3>
+            <p>
+              LLM trajectories around Kaggle tasks, constrained to roughly 100
+              turns. Models inspect progress, evaluate their approach, change
+              strategy, and execute experiments.
+            </p>
+            <details>
+              <summary>Training & evaluation evidence ↗</summary>
+              <p>
+                Work captured generated code, execution outputs, and
+                intermediate trajectory information for training and evaluation.
+                The focus was long-horizon behavior and self-evaluation.
+              </p>
+            </details>
+            <small>
+              LLM trajectories · experiment execution · self-evaluation
+            </small>
+          </Entry>
+        </Grid>
+        <Entry>
+          <Label>Quin / Founding Engineer / Jun–Aug 2025</Label>
+          <h3>Financial decisions grounded in evidence.</h3>
+          <p style={{ maxWidth: "78ch" }}>
+            An AI-native wealth-management decision system built around
+            transparent, evidence-grounded support. I connected a React /
+            TypeScript frontend to Python services, financial data pipelines,
+            and AWS orchestration.
+          </p>
+          <details>
+            <summary>Retrieval → tools → verification ↗</summary>
+            <p>
+              Query decomposition feeds sparse and dense retrieval with
+              cross-encoder reranking. Structured financial tools, iterative
+              planning, and answer verification connect retrieved evidence to
+              decisions. AWS Lambda orchestrates services, with RDS for
+              structured data and S3 for larger datasets.
+            </p>
+          </details>
+          <small>
+            Hybrid RAG · reranking · structured tools · Python · AWS
+          </small>
+        </Entry>
+      </NotebookSection>
+      <NotebookSection
+        id="research"
+        number="03"
+        label="RL + research / University of Illinois Chicago"
+        title="Learning is a systems problem, too."
+      >
+        <Grid>
+          <Entry>
+            <Label>Research thread A / LLM alignment</Label>
+            <h3>Beyond supervised fine-tuning.</h3>
+            <p>
+              Exploring online and beyond-preference alignment, post-SFT
+              reinforcement learning beyond conventional RLHF, and distributed
+              training infrastructure.
+            </p>
+            <Metric>
+              <div>
+                <strong>~54%</strong>
+                <span>
+                  reported training-time reduction in the research environment
+                </span>
+              </div>
+            </Metric>
+            <details open>
+              <summary>Infrastructure & profiling</summary>
+              <p>
+                PyTorch training across multi-node A40 / A100 environments,
+                using Kubernetes and Slurm. Experiment tracking with Weights &
+                Biases; system observation with Prometheus / Grafana; PyTorch
+                and Nsight profiling to investigate training bottlenecks.
+              </p>
+            </details>
+            <details>
+              <summary>Method notes / the distributed learning loop</summary>
+              <p>
+                The work included online DPO pipelines with an LLM-as-a-Judge,
+                implemented in PyTorch with DeepSpeed and Accelerate. The
+                broader research explored alignment after supervised fine-tuning
+                and feedback collected during learning.
+              </p>
+              <p>
+                Training efficiency work covered parallelism and data
+                throughput. PyTorch Profiler and Nsight helped locate kernel and
+                memory bottlenecks; Slurm and Weights &amp; Biases supported
+                hyperparameter sweeps and experiment tracking.
+              </p>
+              <p>
+                The questions I’m interested in connect both layers: what
+                behavior does the feedback reward, and how efficiently can the
+                infrastructure turn that feedback into another experiment?
+              </p>
+            </details>
+            <small>
+              Reported research result; baseline and experiment details need
+              confirmation.
+            </small>
+          </Entry>
+          <Entry>
+            <Label>Research thread B / Clinical reinforcement learning</Label>
+            <h3>A policy for a patient digital twin.</h3>
+            <p>
+              Guided policy gradients for dynamic treatment planning in head and
+              neck cancer, with symptom burden as part of the learning problem.
+            </p>
+            <Metric>
+              <div>
+                <strong>~98%</strong>
+                <span>simulated reward, as reported</span>
+              </div>
+              <div>
+                <strong>~61%</strong>
+                <span>macro-F1 matching physician decisions</span>
+              </div>
+            </Metric>
+            <p>
+              A patient digital twin combines a VAE and autoregressive XGBoost;
+              behavior cloning informs the policy-gradient work.
+            </p>
+            <details>
+              <summary>Method notes / Policy-Refined Behavior Cloning</summary>
+              <p>
+                The research agent uses Policy-Refined Behavior Cloning (PRBC):
+                behavior cloning provides a starting point informed by physician
+                decisions, and policy gradients refine the policy in the
+                simulated treatment environment.
+              </p>
+              <p>
+                The patient digital twin models multi-stage outcomes using a VAE
+                and autoregressive XGBoost. The treatment-planning objective
+                considers efficacy alongside toxicity and symptom burden.
+              </p>
+              <p>
+                Reward and agreement answer different questions. A policy can
+                achieve a high score in its simulator while still differing from
+                physician decisions, so both measures belong in the research
+                story.
+              </p>
+            </details>
+            <small>
+              These metrics describe the research setting, not clinical outcomes
+              or deployment performance. Reward normalization and evaluation
+              protocol need confirmation.
+            </small>
+          </Entry>
+        </Grid>
+        <Pipeline
+          title="Conceptual research loop"
+          stages={[
+            {
+              name: "Model / policy",
+              detail:
+                "Start with a model or policy whose behavior can be evaluated.",
+            },
+            {
+              name: "Environment",
+              detail:
+                "Collect feedback from the task or a simulated patient digital twin.",
+            },
+            {
+              name: "Evaluate",
+              detail:
+                "Measure reward, behavior, and agreement within the experiment’s defined setting.",
+            },
+            {
+              name: "Update",
+              detail:
+                "Use the learning signal to update the policy; repeat and track the experiment.",
+            },
+          ]}
+        />
+        <Entry>
+          <Label>Reading / publications & research notes</Label>
+          <h3>Methods, experiments, and written work.</h3>
+          <p>
+            Master’s thesis: Guided Policy Gradient for Dynamic Treatment Plan
+            Prediction with Symptom Burden Minimization in Head and Neck Cancer.
+          </p>
+          <p>
+            <a
+              href={
+                info?.google_scholar ||
+                "https://scholar.google.com/citations?user=dqOz0_UAAAAJ&hl=en"
+              }
+            >
+              Research profile on Google Scholar ↗
+            </a>
+          </p>
+          {cvData?.research_publications
+            .filter(
+              (p) =>
+                p.title.startsWith("Exploring") ||
+                p.title.startsWith("Automated"),
+            )
+            .map((p) => (
+              <p key={p.title}>
+                <a href={p.link}>{p.title} ↗</a>{" "}
+                <Label>
+                  {p.date} /{" "}
+                  {p.title.startsWith("Exploring")
+                    ? "Technical article"
+                    : "AES 2024 conference abstract"}
+                </Label>
+              </p>
+            ))}
+          <details>
+            <summary>Earlier research / UI Health</summary>
+            <p>
+              EEG seizure detection and ML pipelines at UI Health connect signal
+              preprocessing, model evaluation, and collaboration with
+              clinicians. This work is part of the broader trajectory toward
+              observable and reliable learning systems.
+            </p>
+            <p>
+              The engineering work covered raw signal preprocessing, artifact
+              removal, containerized modules, and collaboration with clinicians.
+              The AES 2024 abstract describes an ensemble of XGBoost, CatBoost,
+              and LightGBM evaluated against expert annotations.
+            </p>
+          </details>
+        </Entry>
+      </NotebookSection>
+      <NotebookSection
+        id="builds"
+        number="04"
+        label="Selected builds"
+        title="Ideas tested outside the notebook."
+      >
+        <Entry>
+          <Label>Find-My-Hospital / voice-agent workflow</Label>
+          <h3>From a phone call to a nearby hospital.</h3>
+          <p>
+            A voice-agent prototype connects location discovery, candidate
+            hospitals, and live traffic / routing to identify an appropriate
+            nearby hospital.
+          </p>
+          <Pipeline
+            title="Voice-agent workflow"
+            stages={[
+              {
+                name: "Phone call",
+                detail: "Twilio and ElevenLabs support the voice interaction.",
+              },
+              {
+                name: "Locate",
+                detail:
+                  "Determine the caller’s location as input to the search.",
+              },
+              {
+                name: "Find hospitals",
+                detail: "Discover candidate hospitals through the workflow.",
+              },
+              {
+                name: "Route",
+                detail: "Google Maps supplies traffic and routing information.",
+              },
+              {
+                name: "Choose",
+                detail:
+                  "Use location and routing evidence to identify a nearby hospital.",
+              },
+            ]}
+          />
+          <p>
+            <strong>1st in the n8n track · 2nd in the AWS MCP Hackathon</strong>
+          </p>
+          <p>This project helped inspire agentPod.</p>
+          <p>
+            <a href="https://devpost.com/software/emergency-find-my-hospital">
+              Project and award listing on Devpost ↗
+            </a>
+          </p>
+          <small>ElevenLabs · Twilio · n8n · Google Maps · AWS Bedrock</small>
+        </Entry>
+        <Grid>
+          <Entry>
+            <Label>Notey / multimodal memory</Label>
+            <h3>Keep the context, not just the transcript.</h3>
+            <p>
+              An AI memory companion combining audio transcription, synchronized
+              photos, summaries, and session replay.
+            </p>
+            <details>
+              <summary>Capture → transcribe → revisit</summary>
+              <p>
+                Audio and photos enter the same event timeline. FastAPI services
+                connect transcription, Gemini summaries, and Supabase storage;
+                replay restores the synchronized media so a summary can be
+                checked against the original context.
+              </p>
+              <p>
+                It’s a useful systems problem: a memory tool needs to preserve
+                the evidence behind its compressed version of an event.
+              </p>
+            </details>
+            <a href="https://github.com/Hjhirp/Notey">Explore the source ↗</a>
+          </Entry>
+          <Entry>
+            <Label>AI chess / model experiment</Label>
+            <h3>Sequence modeling meets move selection.</h3>
+            <p>
+              A 12-layer GPT-2-style decoder, trained using 48 A10 GPUs and
+              reward fine-tuning. Reported move-prediction results: 60% Top-1 /
+              85% Top-5.
+            </p>
+            <small>
+              Prediction accuracy is specific to the reported experiment; it
+              does not establish playing strength.
+            </small>
+            <details>
+              <summary>Related / agent evaluation</summary>
+              <p>
+                Mistral / Llama experiments on blackjack and pathfinding
+                explored chain-of-thought, few-shot prompting, bias, and rule
+                violations.
+              </p>
+            </details>
+          </Entry>
+        </Grid>
+      </NotebookSection>
+      <Writing />
+      <NotebookSection
+        id="trajectory"
+        number="06"
+        label="Trajectory"
+        title="The thread through the work."
+      >
+        <Grid>
+          <div>
+            <Entry>
+              <Label>Foundation / Nirma + Cactus Communications</Label>
+              <h3>Make models useful.</h3>
+              <p>
+                Computer science foundations, scientific document processing,
+                and production NLP pipelines.
+              </p>
+              <p>
+                At Cactus Communications, I worked on Transformer-based
+                summarization and keyword extraction for scientific documents,
+                AWS Inferentia deployment, and evaluation for robustness,
+                regressions, and A/B testing.
+              </p>
+            </Entry>
+            <Entry>
+              <Label>Research / UIC + UI Health</Label>
+              <h3>Understand how they learn.</h3>
+              <p>
+                LLM alignment, distributed GPU training, clinical policy
+                gradients, and EEG pipelines. M.S. in Computer Science, UIC,
+                2023–2025.
+              </p>
+            </Entry>
+          </div>
+          <div>
+            <Entry>
+              <Label>Building / Quin + Find-My-Hospital + agentPod</Label>
+              <h3>Connect intelligence to decisions.</h3>
+              <p>
+                Financial evidence, voice workflows, and a startup prototype for
+                agents that improve the systems they operate.
+              </p>
+            </Entry>
+            <Entry>
+              <Label>Recent work / Mercor + Checksum</Label>
+              <h3>Make action observable.</h3>
+              <p>
+                Long-horizon evaluation, isolated execution, test repair, and
+                feedback loops that expose what the agent did.
+              </p>
+            </Entry>
+          </div>
+        </Grid>
+      </NotebookSection>
+      <NotebookSection
+        id="interests"
+        number="07"
+        label="Open questions"
+        title="What I’m thinking about next."
+      >
+        <p style={{ maxWidth: "78ch", fontSize: 18 }}>
+          How can an agent tell when its own strategy is failing? How do we
+          connect training-time objectives to reliable behavior in real
+          environments?
+        </p>
+        <Interests>
+          {[
+            "Agent self-evaluation",
+            "Reliable autonomous systems",
+            "Reinforcement learning",
+            "Agents in real environments",
+            "Training & evaluation infrastructure",
+          ].map((s) => (
+            <span key={s}>{s}</span>
+          ))}
+        </Interests>
+      </NotebookSection>
+      <NotebookSection
+        id="contact"
+        number="08"
+        label="Contact"
+        title="Let’s compare notes."
+      >
+        <p style={{ maxWidth: "78ch", fontSize: 18 }}>
+          I’m interested in hard problems at the intersection of learning and
+          systems, and in the people building what comes next. Research,
+          engineering, or a future collaboration: I’d like to hear about it.
+        </p>
+        <p>
+          <a
+            style={{
+              fontSize: "clamp(18px, 3vw, 24px)",
+              color: "#ad3e16",
+              overflowWrap: "anywhere",
+            }}
+            href={`mailto:${info?.email || "Hirparaharshal333@gmail.com"}`}
           >
-            <ProfileImage src={profileImage} alt={name} />
-          </motion.div>
-        </HeroContainer>
-      </HeroSection>
-    </>
+            {info?.email || "Hirparaharshal333@gmail.com"} ↗
+          </a>
+        </p>
+        <div style={{ display: "flex", gap: 28, flexWrap: "wrap" }}>
+          <a href={info?.github || "https://github.com/Hjhirp"}>GitHub ↗</a>
+          <a
+            href={
+              info?.linkedin || "https://www.linkedin.com/in/harshaljhirpara"
+            }
+          >
+            LinkedIn ↗
+          </a>
+          <a href={info?.medium || "https://medium.com/@hhirp"}>Writing ↗</a>
+        </div>
+      </NotebookSection>
+    </Page>
   );
-};
-
-export default HomePage;
+}

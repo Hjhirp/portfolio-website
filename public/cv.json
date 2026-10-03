@@ -2,7 +2,7 @@
   "personal_information": {
     "name": "Harshal Hirpara",
     "phone": "+1 (872) 279-7648",
-    "email": "hhirp@uic.edu",
+    "email": "Hirparaharshal333@gmail.com",
     "linkedin": "https://www.linkedin.com/in/harshaljhirpara",
     "github": "https://github.com/Hjhirp",
     "medium": "https://medium.com/@hhirp",
@@ -119,7 +119,7 @@
       "company": "Quin",
       "location": "Mountain View, CA",
       "start_date": "Jun 2025",
-      "end_date": "Present",
+      "end_date": "Aug 2025",
       "stack": [
         "Python",
         "AWS",
@@ -168,7 +168,7 @@
       "company": "Neurology And Rehabilitation Department, UI Health, University of Illinois at Chicago",
       "location": "Chicago, IL",
       "start_date": "Oct 2023",
-      "end_date": "Present",
+      "end_date": "May 2025",
       "stack": [
         "Python",
         "JAX",
@@ -461,9 +461,9 @@
     },
     {
       "title": "Automated Seizure Detection in Ambulatory EEG",
-      "link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dqOz0_UAAAAJ&citation_for_view=dqOz0_UAAAAJ:u-x6o8ySG0sC",
+      "link": "https://aesnet.org/abstractslisting/automated-seizure-detection-in-ambulatory-eeg",
       "date": "Dec 2024",
-      "description": "Developed an aEEG seizure detection system using XGBoost, CatBoost, and LightGBM ensemble, achieving 99% accuracy, 88% sensitivity"
+      "description": "Conference abstract on ensemble machine learning for ambulatory EEG seizure detection, presented at AES on December 7, 2024."
     },
     {
       "title": "Capacity Estimation of Li-Ion Battery Cells Using Deep Neural Networks",
