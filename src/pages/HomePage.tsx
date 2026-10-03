@@ -155,6 +155,7 @@ export default function HomePage({
       </Intro>
       <NotebookSection
         id="systems"
+        artwork="systems"
         number="02"
         label="Agent + systems engineering"
         title="An agent is only as useful as its feedback loop."
@@ -436,6 +437,7 @@ export default function HomePage({
       </NotebookSection>
       <NotebookSection
         id="research"
+        artwork="research"
         number="03"
         label="RL + research / University of Illinois Chicago"
         title="Learning is a systems problem, too."
@@ -628,6 +630,7 @@ export default function HomePage({
       </NotebookSection>
       <NotebookSection
         id="builds"
+        artwork="builds"
         number="04"
         label="Selected builds"
         title="Ideas tested outside the notebook."

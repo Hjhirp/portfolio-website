@@ -108,10 +108,19 @@ const SectionShell = styled(motion.section)`
     align-items: start;
     margin-bottom: 28px;
   }
+  .section-heading.with-art { grid-template-columns: 180px minmax(0, 1fr) 220px; align-items: center; }
+  .section-art { display: block; width: 220px; height: auto; aspect-ratio: 3 / 2; border-radius: 8px; }
+  @media (min-width: 761px) and (max-width: 1000px) {
+    .section-heading.with-art { grid-template-columns: minmax(0, 1fr) 200px; }
+    .section-heading.with-art > div { grid-column: 1 / -1; }
+    .section-art { width: 200px; }
+    .section-heading.with-art + p { margin-left: 0; }
+  }
   .section-heading > div { padding-top: 6px; max-width: 24ch; }
   > p:first-of-type { max-width: 66ch; }
   @media (max-width: 760px) {
-    .section-heading { grid-template-columns: 1fr; gap: 12px; margin-bottom: 24px; }
+    .section-heading, .section-heading.with-art { grid-template-columns: 1fr; gap: 12px; margin-bottom: 24px; }
+    .section-art { width: 100%; max-width: 360px; margin-top: 4px; }
     .section-heading > div { padding: 0; max-width: none; }
   }
   @media (max-width: 700px) {
@@ -126,6 +135,7 @@ export function NotebookSection({
   title,
   children,
   headingLevel = "h2",
+  artwork,
 }: {
   id: string;
   number: string;
@@ -133,6 +143,7 @@ export function NotebookSection({
   title: string;
   children: ReactNode;
   headingLevel?: "h1" | "h2";
+  artwork?: "systems" | "research" | "builds";
 }) {
   const reduced = useReducedMotion();
   const Heading = headingLevel;
@@ -143,9 +154,10 @@ export function NotebookSection({
       whileInView={reduced ? {} : { opacity: 1 }}
       viewport={{ once: true }}
     >
-      <header className="section-heading">
+      <header className={`section-heading${artwork ? " with-art" : ""}`}>
         <Label>{number} / {label}</Label>
         <Heading>{title}</Heading>
+        {artwork && <img className="section-art" src={`/images/editorial/${artwork}.jpg`} alt="" width={960} height={640} loading="lazy" decoding="async" />}
       </header>
       {children}
     </SectionShell>
