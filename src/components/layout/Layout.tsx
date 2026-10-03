@@ -68,7 +68,7 @@ export default function Layout({
           </nav>
         </Page>
       </Header>
-      <main id="main">{children}</main>
+      <main id="main" tabIndex={-1}>{children}</main>
       <Page>
         <footer
           style={{

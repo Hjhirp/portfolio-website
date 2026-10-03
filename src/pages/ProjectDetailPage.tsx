@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Page, Entry, Label, NotebookSection } from "../components/notebook/Notebook";
 
@@ -36,9 +36,13 @@ const projects: Record<string, { title: string; category: string; description: s
 export default function ProjectDetailPage() {
   const { slug } = useParams();
   const project = projects[slug || ""];
+  useEffect(() => {
+    document.title = `${project ? project.category.split(" / ")[0] : "Project not found"} | Harshal Hirpara`;
+    return () => { document.title = "Harshal Hirpara | Systems Notebook"; };
+  }, [project]);
   if (!project) return <Page><Entry><h1>Project not found</h1><Link to="/#builds">Return to selected builds →</Link></Entry></Page>;
-  return <Page><NotebookSection id="project-detail" number="Field note" label={project.category} title={project.title}>
-    <Link to="/#systems">← Back to the notebook</Link>
+  return <Page><NotebookSection id="project-detail" number="Field note" label={project.category} title={project.title} headingLevel="h1">
+    <p><Link to={slug === "ai-chess" ? "/#builds" : "/#systems"}>← Back to the notebook</Link></p>
     <Entry><Label>Overview</Label><p>{project.description}</p></Entry>
     <Entry><h3>My contribution</h3><p>{project.contribution}</p></Entry>
     <Entry><h3>Approach</h3><p>{project.approach}</p></Entry>

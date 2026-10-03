@@ -2,6 +2,11 @@ import React from "react";
 import { render, screen, fireEvent, act } from "@testing-library/react";
 import { Pipeline } from "./components/notebook/Notebook";
 import HomePage from "./pages/HomePage";
+import { useReducedMotion } from "framer-motion";
+jest.mock("framer-motion", () => ({
+  ...jest.requireActual("framer-motion"),
+  useReducedMotion: jest.fn(() => false),
+}));
 jest.mock("react-router-dom", () => ({
   Link: ({ to, children }: { to: string; children: React.ReactNode }) => <a href={to}>{children}</a>,
 }), { virtual: true });
@@ -53,4 +58,21 @@ test("pipeline loops and hover temporarily overrides it", () => {
   expect(screen.getByRole("button", { name: /01 First/ })).toHaveAttribute("aria-pressed", "true");
   unmount();
   jest.useRealTimers();
+});
+
+test("reduced motion disables automatic cycling while retaining keyboard selection", () => {
+  (useReducedMotion as jest.Mock).mockReturnValue(true);
+  jest.useFakeTimers();
+  const { unmount } = render(<Pipeline title="Reduced motion" stages={[
+    { name: "Start", detail: "Initial stage." },
+    { name: "Finish", detail: "Final stage." },
+  ]} />);
+  act(() => { jest.advanceTimersByTime(15000); });
+  expect(screen.getByRole("button", { name: /01 Start/ })).toHaveAttribute("aria-pressed", "true");
+  fireEvent.focus(screen.getByRole("button", { name: /02 Finish/ }));
+  expect(screen.getByRole("button", { name: /02 Finish/ })).toHaveAttribute("aria-pressed", "true");
+  expect(screen.getByText(/Final stage/)).toBeVisible();
+  unmount();
+  jest.useRealTimers();
+  (useReducedMotion as jest.Mock).mockReturnValue(false);
 });

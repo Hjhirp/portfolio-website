@@ -86,7 +86,7 @@ const SectionShell = styled(motion.section)`
   padding: 40px 0;
   border-top: 1px solid #ccc8bb;
   scroll-margin-top: 100px;
-  h2 {
+  h1, h2 {
     font-size: clamp(32px, 4vw, 52px);
     letter-spacing: -0.045em;
     line-height: 1.12;
@@ -105,14 +105,17 @@ export function NotebookSection({
   label,
   title,
   children,
+  headingLevel = "h2",
 }: {
   id: string;
   number: string;
   label: string;
   title: string;
   children: ReactNode;
+  headingLevel?: "h1" | "h2";
 }) {
   const reduced = useReducedMotion();
+  const Heading = headingLevel;
   return (
     <SectionShell
       id={id}
@@ -123,7 +126,7 @@ export function NotebookSection({
       <Label>
         {number} / {label}
       </Label>
-      <h2>{title}</h2>
+      <Heading>{title}</Heading>
       {children}
     </SectionShell>
   );
@@ -140,9 +143,9 @@ const Diagram = styled.div`
     margin-top: 20px;
   }
 `;
-const Nodes = styled.div`
+const Nodes = styled.div<{ $count: number }>`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  grid-template-columns: repeat(${({ $count }) => $count}, minmax(0, 1fr));
   gap: 12px;
   margin: 20px 0 0;
   button {
@@ -193,9 +196,12 @@ const Nodes = styled.div`
   }
   @media (max-width: 760px) {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+    button:nth-child(3n)::before { display: none; }
   }
   @media (max-width: 450px) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    button:nth-child(3n)::before { display: block; }
+    button:nth-child(2n)::before, button:last-child::before { display: none; }
   }
 `;
 export function Pipeline({
@@ -227,7 +233,7 @@ export function Pipeline({
       }}
     >
       <Label>{title}</Label>
-      <Nodes>
+      <Nodes $count={stages.length}>
         {stages.map((stage, i) => (
           <button
             key={stage.name}
@@ -243,8 +249,12 @@ export function Pipeline({
           </button>
         ))}
       </Nodes>
-      <p aria-live={cycling ? "off" : "polite"} style={{ fontSize: 14, marginBottom: 0 }}>
-        <strong>{stages[active].name}.</strong> {stages[active].detail}
+      <p aria-live={cycling ? "off" : "polite"} style={{ display: "grid", fontSize: 14, marginBottom: 0 }}>
+        {stages.map((stage, index) => (
+          <span key={stage.name} aria-hidden={active !== index} style={{ gridArea: "1 / 1", visibility: active === index ? "visible" : "hidden" }}>
+            <strong>{stage.name}.</strong> {stage.detail}
+          </span>
+        ))}
       </p>
     </Diagram>
   );

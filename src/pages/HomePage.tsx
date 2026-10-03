@@ -14,6 +14,7 @@ import {
   Pipeline,
 } from "../components/notebook/Notebook";
 const Intro = styled.section`
+  scroll-margin-top: 100px;
   padding: 48px 0 40px;
   h1 {
     font-size: clamp(2.5rem, 5.7vw, 4.5rem);
@@ -593,7 +594,7 @@ export default function HomePage({
               <div key={p.title}>
                 <p>
                 <a href={p.link}>{p.title} ↗</a>{" "}
-                <Label>
+                <Label as="span" style={{ display: "block" }}>
                   {p.date} /{" "}
                   {p.title.startsWith("Exploring")
                     ? "Technical article"

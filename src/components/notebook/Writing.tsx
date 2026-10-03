@@ -134,9 +134,9 @@ export default function Writing() {
               </a>
               <p>{article.note}</p>
             </div>
-            <span className="arrow" aria-hidden="true">
+            <a className="arrow" href={`https://checksum.ai/blog/${article.path}`} aria-label={`Read ${article.title}`}>
               ↗
-            </span>
+            </a>
           </Article>
         ))}
       </Articles>
