@@ -1,5 +1,36 @@
 import React, { useState } from "react";
+import styled from "styled-components";
 import { Entry, Grid, Label } from "./Notebook";
+const ArchiveGrid = styled(Grid)`
+  column-gap: 32px;
+  row-gap: 0;
+`;
+const ArchiveEntry = styled(Entry)`
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0;
+  h3 {
+    margin: 8px 0 10px;
+    font-size: clamp(22px, 2.2vw, 27px);
+    line-height: 1.2;
+  }
+  p {
+    margin: 0 0 16px;
+    line-height: 1.55;
+  }
+  footer {
+    margin-top: auto;
+  }
+  footer a {
+    display: inline-block;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  small {
+    margin-top: 6px;
+    line-height: 1.5;
+  }
+`;
 const projects = [
   { name: "Kip", repo: "Kip", category: "Agents & products", title: "Check the claim against the filing.", description: "An earnings-call analysis prototype extracts quantitative management claims and compares them with financial data. Deterministic checks run first, with model reasoning for cases that need context.", stack: "PydanticAI · Gemini · SEC EDGAR · SQLite" },
   { name: "PatientHero", repo: "PatientHero", category: "Agents & products", title: "Coordinate the steps around finding care.", description: "A demonstration platform connects conversational intake, hospital discovery, and appointment-information extraction. Specialized agents and background browser tasks explore how to coordinate a multi-step healthcare workflow.", stack: "CrewAI · FastAPI · Playwright · Exa · Weave" },
@@ -23,10 +54,10 @@ export default function ProjectArchive() {
     <div role="group" aria-label="Project categories" style={{ display: "flex", flexWrap: "wrap", gap: 12, margin: "20px 0" }}>
       {categories.map((name) => <button key={name} type="button" aria-pressed={category === name} onClick={() => setCategory(name)} style={{ padding: "10px 14px", border: "1px solid #ccc8bb", background: category === name ? "#ad3e16" : "transparent", color: category === name ? "#fff" : "#68665e", cursor: "pointer" }}>{name}</button>)}
     </div>
-    <Grid>{projects.filter((project) => project.category === category).map((project) => <Entry key={project.repo}>
+    <ArchiveGrid>{projects.filter((project) => project.category === category).map((project) => <ArchiveEntry key={project.repo}>
       <Label>{project.name}</Label><h3>{project.title}</h3><p>{project.description}</p>
-      <a href={`https://github.com/Hjhirp/${project.repo}`}>Explore the source ↗</a><small>{project.stack}</small>
-    </Entry>)}</Grid>
+      <footer><a href={`https://github.com/Hjhirp/${project.repo}`}>Explore the source ↗</a><small>{project.stack}</small></footer>
+    </ArchiveEntry>)}</ArchiveGrid>
     <p><a href="https://github.com/Hjhirp?tab=repositories">Browse all repositories ↗</a></p>
   </div>;
 }
