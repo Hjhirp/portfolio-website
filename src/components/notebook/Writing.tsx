@@ -11,6 +11,7 @@ const Article = styled.article`
   gap: 24px;
   padding: 24px 0;
   border-bottom: 1px solid #ccc8bb;
+  &:last-child { border-bottom: 0; padding-bottom: 0; }
   .date {
     font-size: 0.8125rem;
     color: #68665e;
