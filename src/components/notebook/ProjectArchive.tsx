@@ -2,17 +2,17 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Label, ProjectDescription, ProjectSources } from "./Notebook";
 const ArchiveGrid = styled.div`
-  border-top: 1px solid #ccc8bb;
+  border-top: 1px solid var(--rule);
 `;
 const ArchiveEntry = styled.article`
   display: grid;
   grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.4fr);
   column-gap: 40px;
   padding: 24px 0;
-  border-bottom: 1px solid #ccc8bb;
+  border-bottom: 1px solid var(--rule);
   h3 {
     margin: 8px 0 0;
-    font-size: clamp(22px, 2.2vw, 27px);
+    font-size: var(--project-title);
     letter-spacing: -0.035em;
     line-height: 1.25;
     text-wrap: pretty;
@@ -28,8 +28,8 @@ const Categories = styled.div`
   flex-wrap: wrap;
   gap: 12px;
   margin: 20px 0;
-  button { padding: 10px 14px; border: 1px solid #ccc8bb; background: transparent; color: #68665e; cursor: pointer; font: inherit; font-size: 14px; }
-  button[aria-pressed="true"] { background: #ad3e16; color: white; border-color: #ad3e16; }
+  button { padding: 10px 14px; border: 1px solid transparent; border-radius: 6px; background: transparent; color: #68665e; cursor: pointer; font: inherit; font-size: 14px; }
+  button[aria-pressed="true"] { background: #ece7dc; color: #92320f; border-color: #d9d0be; }
   @media (max-width: 500px) {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -55,7 +55,7 @@ const categories = ["Agents & products", "Language & retrieval", "ML & simulatio
 export default function ProjectArchive() {
   const [category, setCategory] = useState(categories[0]);
   return <div>
-    <h3 style={{ fontSize: 28, margin: "32px 0 12px" }}>More from the project archive.</h3>
+    <h3 style={{ fontSize: 26, margin: "32px 0 12px" }}>More from the project archive.</h3>
     <p>Product prototypes, research tools, and experiments from my GitHub repositories.</p>
     <Categories role="group" aria-label="Project categories">
       {categories.map((name) => <button key={name} type="button" aria-pressed={category === name} onClick={() => setCategory(name)}>{name}</button>)}

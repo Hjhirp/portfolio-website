@@ -3,7 +3,12 @@ import styled from "styled-components";
 import { motion, useReducedMotion } from "framer-motion";
 
 export const Page = styled.div`
-  max-width: 1120px;
+  max-width: 1088px;
+  --rule: #d9d5ca;
+  --space-sm: 12px;
+  --space-md: 24px;
+  --space-lg: 40px;
+  --project-title: clamp(22px, 2vw, 26px);
   margin: auto;
   padding: 0 48px;
   @media (max-width: 700px) {
@@ -16,18 +21,19 @@ export const Label = styled.div`
     Consolas,
     monospace;
   text-transform: uppercase;
-  letter-spacing: 0.13em;
+  letter-spacing: 0.09em;
   color: #68665e;
 `;
 export const SectionLead = styled.p`
-  max-width: 78ch;
-  font-size: 18px;
-  line-height: 1.55;
-  margin: 0 0 24px;
+  max-width: 66ch;
+  font-size: 17px;
+  line-height: 1.65;
+  margin: -8px 0 32px 212px;
+  @media (max-width: 760px) { margin: -8px 0 24px; }
 `;
 export const ProjectDescription = styled.p`
   margin: 0 0 12px;
-  line-height: 1.55;
+  line-height: 1.65;
 `;
 export const ProjectSources = styled.footer`
   a { display: inline-block; font-size: 14px; line-height: 1.5; }
@@ -36,8 +42,8 @@ export const ProjectSources = styled.footer`
 export const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  column-gap: 32px;
-  row-gap: 16px;
+  column-gap: var(--space-lg);
+  row-gap: var(--space-md);
   align-items: start;
   > * {
     min-width: 0;
@@ -48,18 +54,18 @@ export const Grid = styled.div`
   }
 `;
 export const Entry = styled.article`
-  border-top: 1px solid #ccc8bb;
+  border-top: 1px solid var(--rule, #d9d5ca);
   padding: 20px 0;
   h3 {
-    font-size: clamp(1.5rem, 2.5vw, 1.875rem);
-    letter-spacing: -0.035em;
-    margin: 8px 0 10px;
+    font-size: var(--project-title);
+    letter-spacing: -0.025em;
+    margin: 10px 0 16px;
     line-height: 1.25;
     text-wrap: pretty;
   }
   p {
-    max-width: 78ch;
-    line-height: 1.55;
+    max-width: 66ch;
+    line-height: 1.65;
     margin: 0 0 12px;
   }
   details {
@@ -83,20 +89,33 @@ export const Entry = styled.article`
   }
 `;
 const SectionShell = styled(motion.section)`
-  padding: 40px 0;
-  border-top: 1px solid #ccc8bb;
+  padding: 56px 0;
+  border-top: 1px solid var(--rule, #d9d5ca);
   scroll-margin-top: 100px;
   &:first-child { border-top: 0; }
   h1, h2 {
-    font-size: clamp(32px, 4vw, 52px);
-    letter-spacing: -0.045em;
-    line-height: 1.12;
-    margin: 12px 0 20px;
+    font-size: clamp(28px, 3.3vw, 38px);
+    letter-spacing: -0.035em;
+    line-height: 1.18;
+    margin: 0;
     max-width: 100%;
     text-wrap: balance;
   }
+  .section-heading {
+    display: grid;
+    grid-template-columns: 180px minmax(0, 1fr);
+    gap: 32px;
+    align-items: start;
+    margin-bottom: 28px;
+  }
+  .section-heading > div { padding-top: 6px; max-width: 24ch; }
+  > p:first-of-type { max-width: 66ch; }
+  @media (max-width: 760px) {
+    .section-heading { grid-template-columns: 1fr; gap: 12px; margin-bottom: 24px; }
+    .section-heading > div { padding: 0; max-width: none; }
+  }
   @media (max-width: 700px) {
-    padding: 36px 0;
+    padding: 40px 0;
     scroll-margin-top: 24px;
   }
 `;
@@ -124,22 +143,24 @@ export function NotebookSection({
       whileInView={reduced ? {} : { opacity: 1 }}
       viewport={{ once: true }}
     >
-      <Label>
-        {number} / {label}
-      </Label>
-      <Heading>{title}</Heading>
+      <header className="section-heading">
+        <Label>{number} / {label}</Label>
+        <Heading>{title}</Heading>
+      </header>
       {children}
     </SectionShell>
   );
 }
 export type Stage = { name: string; detail: string };
 const Diagram = styled.div`
-  border-top: 1px solid #ccc8bb;
-  padding: 20px 0;
+  background: #efede5;
+  border-radius: 8px;
+  padding: 24px;
   margin: 24px 0;
+  @media (max-width: 450px) { padding: 20px 16px; }
   &:last-child { margin-bottom: 0; }
   > p {
-    max-width: 78ch;
+    max-width: 66ch;
     line-height: 1.65;
     margin-top: 20px;
   }
@@ -166,7 +187,7 @@ const Nodes = styled.div<{ $count: number }>`
     top: 13px;
     left: 32px;
     right: 0;
-    border-top: 1px solid #ccc8bb;
+    border-top: 1px solid var(--rule, #d9d5ca);
   }
   button:last-child::before {
     display: none;
@@ -190,7 +211,7 @@ const Nodes = styled.div<{ $count: number }>`
     border-radius: 50%;
     font: 10px monospace;
     margin-bottom: 12px;
-    background: #f6f4ec;
+    background: #efede5;
   }
   .step-name {
     display: block;

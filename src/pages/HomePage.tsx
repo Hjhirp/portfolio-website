@@ -15,9 +15,9 @@ import {
 } from "../components/notebook/Notebook";
 const Intro = styled.section`
   scroll-margin-top: 100px;
-  padding: 48px 0 40px;
+  padding: 56px 0 48px;
   h1 {
-    font-size: clamp(2.5rem, 5.7vw, 4.5rem);
+    font-size: clamp(2.5rem, 5.3vw, 4rem);
     font-weight: 500;
     letter-spacing: -0.055em;
     line-height: 1.04;
@@ -27,8 +27,8 @@ const Intro = styled.section`
   }
   .intro-context {
     display: grid;
-    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
-    gap: 56px;
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+    gap: 40px;
     align-items: start;
   }
   .intro-role {
@@ -64,7 +64,7 @@ const Intro = styled.section`
 const Index = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  border-top: 1px solid #ccc8bb;
+  border-top: 1px solid var(--rule);
   margin-top: 20px;
   gap: 30px;
   padding-top: 20px;
@@ -84,7 +84,7 @@ const Metric = styled.div`
   strong {
     display: block;
     color: #ad3e16;
-    font-size: 42px;
+    font-size: 34px;
     letter-spacing: -0.04em;
   }
   span {
@@ -98,8 +98,9 @@ const Interests = styled.div`
   flex-wrap: wrap;
   gap: 12px;
   span {
-    border: 1px solid #ccc8bb;
-    padding: 10px 16px;
+    background: #ece9df;
+    border-radius: 6px;
+    padding: 8px 12px;
     font-size: 14px;
   }
 `;

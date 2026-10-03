@@ -3,14 +3,14 @@ import styled from "styled-components";
 import { Label, NotebookSection, SectionLead } from "./Notebook";
 const Articles = styled.div`
   margin-top: 24px;
-  border-top: 1px solid #ccc8bb;
+  border-top: 1px solid var(--rule);
 `;
 const Article = styled.article`
   display: grid;
-  grid-template-columns: 170px minmax(0, 1fr) 24px;
-  gap: 24px;
+  grid-template-columns: 180px minmax(0, 1fr) 24px;
+  gap: 32px;
   padding: 24px 0;
-  border-bottom: 1px solid #ccc8bb;
+  border-bottom: 1px solid var(--rule);
   &:last-child { border-bottom: 0; padding-bottom: 0; }
   .date {
     font-size: 0.8125rem;
@@ -23,7 +23,7 @@ const Article = styled.article`
     font-size: 11px;
   }
   h3 {
-    font-size: clamp(21px, 2.2vw, 27px);
+    font-size: var(--project-title);
     line-height: 1.3;
     font-weight: 600;
     letter-spacing: -0.025em;
@@ -33,7 +33,7 @@ const Article = styled.article`
   }
   p {
     font-size: 1rem;
-    line-height: 1.55;
+    line-height: 1.65;
     max-width: 65ch;
     margin: 0;
   }

@@ -1,6 +1,21 @@
 import React, { useEffect } from "react";
+import styled from "styled-components";
 import { Link, useParams } from "react-router-dom";
 import { Page, Entry, Label, NotebookSection } from "../components/notebook/Notebook";
+
+const StoryEntry = styled(Entry)`
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr);
+  gap: 32px;
+  padding: 28px 0;
+  h3 { font-size: 18px; margin: 0; line-height: 1.45; }
+  > p { margin: 0; }
+  @media (max-width: 760px) {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 24px 0;
+  }
+`;
 
 const projects: Record<string, { title: string; category: string; description: string; contribution: string; approach: string; lesson: string }> = {
   agentpod: {
@@ -43,32 +58,32 @@ export default function ProjectDetailPage() {
   if (!project) return <Page><Entry><h1>Project not found</h1><Link to="/#builds">Return to selected builds →</Link></Entry></Page>;
   return <Page><NotebookSection id="project-detail" number="Field note" label={project.category} title={project.title} headingLevel="h1">
     <p><Link to={slug === "ai-chess" ? "/#builds" : "/#systems"}>← Back to the notebook</Link></p>
-    <Entry><Label>Overview</Label><p>{project.description}</p></Entry>
-    <Entry><h3>My contribution</h3><p>{project.contribution}</p></Entry>
-    <Entry><h3>Approach</h3><p>{project.approach}</p></Entry>
-    <Entry><h3>The systems question</h3><p>{project.lesson}</p></Entry>
+    <StoryEntry><Label>Overview</Label><p>{project.description}</p></StoryEntry>
+    <StoryEntry><h3>My contribution</h3><p>{project.contribution}</p></StoryEntry>
+    <StoryEntry><h3>Approach</h3><p>{project.approach}</p></StoryEntry>
+    <StoryEntry><h3>The systems question</h3><p>{project.lesson}</p></StoryEntry>
     {slug === "agentpod" && <>
-      <Entry><h3>Product experience</h3><p>
+      <StoryEntry><h3>Product experience</h3><p>
         The chat prototype supports streaming responses across OpenAI, Gemini,
         and Anthropic, with model selection, conversation history, and URL
         context. A separate workflow workspace explores visual node editing,
         workflow navigation, and an observability sidebar organized around run
         health, agent quality, and cost.
-      </p></Entry>
-      <Entry><h3>Why a knowledge graph?</h3><p>
+      </p></StoryEntry>
+      <StoryEntry><h3>Why a knowledge graph?</h3><p>
         Workflow requests often describe a business goal without naming the
         integrations or nodes needed to implement it. Vector search finds
         relevant examples; a documentation graph adds connected entities and
         relationships. Retrieving the original template JSON keeps the source
         available for inspection and adaptation.
-      </p></Entry>
-      <Entry><h3>Stage and next challenge</h3><p>
+      </p></StoryEntry>
+      <StoryEntry><h3>Stage and next challenge</h3><p>
         We reached a working prototype and engaged prospective design partners.
         The repos show implemented retrieval and chat components alongside an
         early workflow editor and an observability interface using sample data.
         Connecting those pieces into a fully instrumented execution and
         optimization loop was the broader product direction.
-      </p></Entry>
+      </p></StoryEntry>
     </>}
   </NotebookSection></Page>;
 }
