@@ -1,48 +1,70 @@
-import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { GlobalStyles } from './styles/theme';
-import Layout from './components/layout/Layout';
-import HomePage from './pages/HomePage';
-import AboutPage from './pages/AboutPage';
-import ExperiencePage from './pages/ExperiencePage';
-import ProjectsPage from './pages/ProjectsPage';
-import ResearchPage from './pages/ResearchPage';
-import ContactPage from './pages/ContactPage';
-import { useCV } from './utils/cvUtils';
-import { useScript } from './utils/useScript';
-
-function App() {
-  const { cv, loading, error } = useCV();
-  
-  // Load Font Awesome
-  useScript('https://kit.fontawesome.com/your-kit-code.js');
-  // Load DevIcons for tech stack icons
-  useScript('https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css');
-  
-  // Copy CV.json to public folder on first load
+import React, { useEffect } from "react";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  useLocation,
+  Navigate,
+} from "react-router-dom";
+import { GlobalStyles } from "./styles/theme";
+import Layout from "./components/layout/Layout";
+import HomePage from "./pages/HomePage";
+import ProjectDetailPage from "./pages/ProjectDetailPage";
+import { useCV } from "./utils/cvUtils";
+function ScrollToSection() {
+  const { hash, pathname } = useLocation();
   useEffect(() => {
-    // For development purposes, we'd copy the CV.json to the public folder
-    // In production, this would be handled during build
-    // Or by having the CV data in a proper backend/API
-    console.log('CV data loaded:', cv !== null);
-  }, [cv]);
-  
+    if (hash) {
+      document.getElementById(hash.slice(1))?.scrollIntoView();
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, [hash, pathname]);
+  return null;
+}
+export default function App() {
+  const data = useCV();
   return (
-    <Router basename={process.env.PUBLIC_URL}>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <GlobalStyles />
-      <Layout cvData={cv}>
+      <Layout cvData={data.cv}>
+        <ScrollToSection />
         <Routes>
-          <Route path="/" element={<HomePage cvData={cv} loading={loading} error={error} />} />
-          <Route path="/about" element={<AboutPage cvData={cv} loading={loading} error={error} />} />
-          <Route path="/experience" element={<ExperiencePage cvData={cv} loading={loading} error={error} />} />
-          <Route path="/projects" element={<ProjectsPage cvData={cv} loading={loading} error={error} />} />
-          <Route path="/research" element={<ResearchPage cvData={cv} loading={loading} error={error} />} />
-          <Route path="/contact" element={<ContactPage cvData={cv} loading={loading} error={error} />} />
-          <Route path="*" element={<div>Page not found</div>} />
+          <Route
+            path="/"
+            element={
+              <HomePage
+                cvData={data.cv}
+                loading={data.loading}
+                error={data.error}
+              />
+            }
+          />
+          <Route path="/projects/:slug" element={<ProjectDetailPage />} />
+          {Object.entries({
+            about: "intro",
+            experience: "systems",
+            projects: "builds",
+            research: "research",
+            contact: "contact",
+          }).map(([path, id]) => (
+            <Route
+              key={path}
+              path={`/${path}`}
+              element={<Navigate to={`/#${id}`} replace />}
+            />
+          ))}
+          <Route
+            path="*"
+            element={
+              <div style={{ padding: 48 }}>
+                <h1>Page not found</h1>
+                <a href="/">Return to the notebook →</a>
+              </div>
+            }
+          />
         </Routes>
       </Layout>
-    </Router>
+    </BrowserRouter>
   );
 }
-
-export default App;
